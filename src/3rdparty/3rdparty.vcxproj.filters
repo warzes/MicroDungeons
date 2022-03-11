@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="raylib">
+      <UniqueIdentifier>{279771ae-bc81-4159-8566-6a2777302271}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="raylib\config.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib\raudio.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib\raylib.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib\raymath.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib\rcamera.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib\rgestures.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib\rlgl.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="raylib\utils.h">
+      <Filter>raylib</Filter>
+    </ClInclude>
+    <ClInclude Include="rlFPCamera.h" />
+    <ClInclude Include="rlFrustum.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="raylib\raudio.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib\rcore.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib\rglfw.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib\rmodels.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib\rshapes.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib\rtext.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib\rtextures.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib\utils.c">
+      <Filter>raylib</Filter>
+    </ClCompile>
+    <ClCompile Include="rlFPCamera.cpp" />
+    <ClCompile Include="rlFrustum.cpp" />
+  </ItemGroup>
+</Project>
