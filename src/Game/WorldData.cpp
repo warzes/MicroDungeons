@@ -31,6 +31,18 @@ WorldData::WorldData(const char* file)
 			m_tileInfo.push_back(tileInfo);
 		}
 	}
+
+	for (int i = 0; i < 100; i++)
+	{
+		float randR = rand() % 255 / 255.0f;
+		float randG = rand() % 255 / 255.0f;
+		float randB = rand() % 255 / 255.0f;
+
+		int x = rand() % m_size.x;
+		int y = rand() % m_size.y;
+
+		PerformRadiosity({ x, y }, { randR, randG, randB });
+	}
 }
 //-----------------------------------------------------------------------------
 TileInfo* WorldData::GetTile(glm::ivec2 tilePosition)

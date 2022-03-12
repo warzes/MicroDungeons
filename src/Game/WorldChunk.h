@@ -5,7 +5,7 @@ class World;
 class WorldChunk
 {
 public:
-	WorldChunk(World& world, Texture2D textureDiffuse, glm::ivec2 position);
+	WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShader, glm::ivec2 position);
 	void Draw();
 	void Close();
 

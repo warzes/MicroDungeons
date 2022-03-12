@@ -63,24 +63,12 @@ void World::Init()
 
 	m_worldData = new WorldData("");
 
-	for (int i = 0; i < 100; i++)
-	{
-		float randR = rand() % 255 / 255.0f;
-		float randG = rand() % 255 / 255.0f;
-		float randB = rand() % 255 / 255.0f;
-
-		int x = rand() % m_worldData->Size().x;
-		int y = rand() % m_worldData->Size().y;
-
-		m_worldData->PerformRadiosity({ x, y }, { randR, randG, randB });
-	}
-
 	// Generate level chunks.
 	for (int32_t z = 0; z < m_worldData->Size().y; z += ChunkSize)
 	{
 		for (int32_t x = 0; x < m_worldData->Size().x; x += ChunkSize)
 		{
-			m_chunks.insert({ chunkPosition({x, z}), WorldChunk{*this, tx, {x, z}} });
+			m_chunks.insert({ chunkPosition({x, z}), WorldChunk{*this, tx, chunkShader, {x, z}} });
 		}
 	}
 }

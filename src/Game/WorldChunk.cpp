@@ -70,7 +70,7 @@ inline static constexpr std::array<std::array<int32_t, 6>, 6> SideVertexIndices 
 //-----------------------------------------------------------------------------
 inline static constexpr std::array<int32_t, 6> VertexUVIndices = { 0, 2, 1, 2, 3, 1 };
 //-----------------------------------------------------------------------------
-WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, glm::ivec2 position)
+WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShader, glm::ivec2 position)
 	: m_world(world)
 	, m_position(position)
 {
@@ -197,6 +197,7 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, glm::ivec2 positi
 
 	m_model = LoadModelFromMesh(m_mesh);
 	m_model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = textureDiffuse;
+	m_model.materials[0].shader = chunkShader;
 }
 //-----------------------------------------------------------------------------
 void WorldChunk::Draw()
