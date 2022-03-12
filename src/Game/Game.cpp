@@ -24,7 +24,7 @@ void Game::Frame()
 	//cam.BeginMode3D();
 	BeginMode3D(m_playerCamera.GetCamera());
 	{
-		DrawPlane(Vector3{ 0, 0, 0 }, Vector2{ 50, 50 }, BEIGE);
+		//DrawPlane(Vector3{ 0, 0, 0 }, Vector2{ 50, 50 }, BEIGE);
 		m_world.Frame();
 	}
 	EndMode3D();

@@ -10,7 +10,15 @@
 #include <rlFPCamera.h>
 #include <RLFrustum.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtx/vector_angle.hpp>
+#include <glm/gtc/random.hpp>
+
 #include <iostream>
+#include <set>
+#include <queue>
+#include <array>
+#include <unordered_map>
 
 #if defined(_MSC_VER)
 #	pragma warning(pop)
