@@ -9,6 +9,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -17,6 +20,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

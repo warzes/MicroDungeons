@@ -2,40 +2,30 @@
 #include "Game.h"
 #include "Player.h"
 //-----------------------------------------------------------------------------
-Texture tx;
 //rlFPCamera cam;
-PlayerCamera playerCamera;
 //-----------------------------------------------------------------------------
 Game::Game()
 {
-	Image img = GenImageChecked(256, 256, 32, 32, DARKBLUE, WHITE);
-	tx = LoadTextureFromImage(img);
-	UnloadImage(img);
-	SetTextureFilter(tx, TEXTURE_FILTER_POINT);
-	SetTextureWrap(tx, TEXTURE_WRAP_CLAMP);
-	
 	//cam.Setup(45, Vector3{ 1, 0, 0 });
 	//cam.MoveSpeed.z = 10;
 	//cam.MoveSpeed.x = 5;
 	//cam.FarPlane = 5000;
 
-	playerCamera.Init({ 0.0f, 0.0f, 0.0f });
+	m_playerCamera.Init({ 5.0f, 0.0f, 0.0f }, 180, 90);
+	m_world.Init();
 }
 //-----------------------------------------------------------------------------
 void Game::Frame()
 {
-	playerCamera.Update(nullptr, GetFrameTime());
-	//cam.Update();
-
 	BeginDrawing();
 	//ClearBackground({ 140, 210, 240 });
 	ClearBackground({ 50, 100, 200 });
 
 	//cam.BeginMode3D();
-	BeginMode3D(playerCamera.GetCamera());
+	BeginMode3D(m_playerCamera.GetCamera());
 	{
 		DrawPlane(Vector3{ 0, 0, 0 }, Vector2{ 50, 50 }, BEIGE);
-		DrawCubeTexture(tx, Vector3{ 0, 0.5f, 0 }, 1, 1, 1, WHITE);
+		m_world.Frame();
 	}
 	EndMode3D();
 	//cam.EndMode3D();
@@ -44,8 +34,14 @@ void Game::Frame()
 	EndDrawing();
 }
 //-----------------------------------------------------------------------------
+void Game::Update()
+{
+	//cam.Update();
+	m_playerCamera.Update(m_world, GetFrameTime());
+}
+//-----------------------------------------------------------------------------
 void Game::Close()
 {
-	UnloadTexture(tx);
+	m_world.Close();
 }
 //-----------------------------------------------------------------------------

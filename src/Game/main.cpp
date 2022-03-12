@@ -32,6 +32,7 @@ void ImplMain()
 	while (!WindowShouldClose())
 	{
 		game.Frame();
+		game.Update();
 	}
 	game.Close();
 	rCloseWindow();

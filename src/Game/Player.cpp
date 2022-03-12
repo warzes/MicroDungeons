@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "World.h"
 //-----------------------------------------------------------------------------
 static PlayerCamera* gPlayer = nullptr;
 #define MOUSE_SENSITIVITY 0.003f
-static Vector2 oldMousePos = { 0.0f, 0.0f };
-static Vector2 cameraAngle = { 0.0f, 0.0f };
-static bool cursorEnabled = false; // TODO:
 //-----------------------------------------------------------------------------
 PlayerCamera::PlayerCamera()
 {
@@ -15,7 +13,7 @@ PlayerCamera::PlayerCamera()
 	m_camera.fovy = 70.0f;
 	m_camera.projection = CAMERA_PERSPECTIVE;
 
-	m_collisionBox.min = { 0, 0, 0 };
+	m_collisionBox.min = { 0.0f, 0.0f, 0.0f };
 	m_collisionBox.max = { 0.4f, 0.6f, 0.4f };
 }
 //-----------------------------------------------------------------------------
@@ -24,20 +22,22 @@ PlayerCamera* PlayerCamera::Get()
 	return gPlayer;
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::Init(Vector3 startPosition)
+void PlayerCamera::Init(const Vector3& startPosition, int rotationCamX, int rotationCamY)
 {
 	SetCameraMode(m_camera, CAMERA_CUSTOM);
 	m_position = { startPosition.x, startPosition.y, startPosition.z };
-	DisableCursor();
+	this->DisableCursor();
+	m_cameraAngle.x = (float)rotationCamX * DEG2RAD;
+	m_cameraAngle.y = (float)rotationCamY * DEG2RAD;
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::Update(World* world, float deltaTime)
+void PlayerCamera::Update(const World& world, float deltaTime)
 {
 	//Gravity
-	m_velocity.y -= 0.012f * (deltaTime * 60);
+	m_velocity.y -= 0.012f * (deltaTime * 60.0f);
 
 	//Calculate velocity with delta time
-	Vector3 velXdt = Vector3Scale(m_velocity, deltaTime * 60);
+	Vector3 velXdt = Vector3Scale(m_velocity, deltaTime * 60.0f);
 
 	m_position.x += velXdt.x;
 	if (TestCollision(world)) m_position.x -= velXdt.x;
@@ -45,11 +45,11 @@ void PlayerCamera::Update(World* world, float deltaTime)
 	if (TestCollision(world)) m_position.z -= velXdt.z;
 
 	m_position.y += velXdt.y;
-	if (TestCollision(world) || m_position.y < 0)
+	if (TestCollision(world) || m_position.y < 0.0f)
 	{
 		m_position.y -= velXdt.y;
-		if (m_velocity.y <= 0) m_canJump = true;
-		m_velocity.y = 0;
+		if (m_velocity.y <= 0.0f) m_canJump = true;
+		m_velocity.y = 0.0f;
 	}
 
 	m_camera.position = m_position;
@@ -61,7 +61,7 @@ void PlayerCamera::Update(World* world, float deltaTime)
 	checkInputs();
 }
 //-----------------------------------------------------------------------------
-bool PlayerCamera::TestCollision(World* world)
+bool PlayerCamera::TestCollision(const World& world)
 {
 	BoundingBox pB = m_collisionBox;
 	pB.min = Vector3Add(pB.min, m_position);
@@ -74,52 +74,50 @@ bool PlayerCamera::TestCollision(World* world)
 //-----------------------------------------------------------------------------
 void PlayerCamera::EnableCursor()
 {
+	m_cursorEnabled = true;
 	::EnableCursor();
 }
 //-----------------------------------------------------------------------------
 void PlayerCamera::DisableCursor()
 {
+	m_cursorEnabled = false;
 	::DisableCursor();
+	SetMousePosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
 }
 //-----------------------------------------------------------------------------
 void PlayerCamera::checkInputs()
 {
-	Vector2 mousePositionDelta = { 0.0f, 0.0f };
-	Vector2 mousePos = GetMousePosition();
-	mousePositionDelta.x = mousePos.x - oldMousePos.x;
-	mousePositionDelta.y = mousePos.y - oldMousePos.y;
+	Vector2 mousePositionDelta = GetMouseDelta();
 
-	oldMousePos = GetMousePosition();
-
-	if (!cursorEnabled)
+	if (!m_cursorEnabled)
 	{
-		cameraAngle.x -= (mousePositionDelta.x * -MOUSE_SENSITIVITY);
-		cameraAngle.y -= (mousePositionDelta.y * -MOUSE_SENSITIVITY);
+		m_cameraAngle.x -= (mousePositionDelta.x * -MOUSE_SENSITIVITY);
+		m_cameraAngle.y -= (mousePositionDelta.y * -MOUSE_SENSITIVITY);
 
 		const float maxCamAngleY = PI - 0.01f;
 		const float minCamAngleY = 0.01f;
 
-		if (cameraAngle.y >= maxCamAngleY)
-			cameraAngle.y = maxCamAngleY;
-		else if (cameraAngle.y <= minCamAngleY)
-			cameraAngle.y = minCamAngleY;
+		if (m_cameraAngle.y >= maxCamAngleY)
+			m_cameraAngle.y = maxCamAngleY;
+		else if (m_cameraAngle.y <= minCamAngleY)
+			m_cameraAngle.y = minCamAngleY;
 	}
 
 	//Calculate direction vectors of the camera angle
-	float cx = cosf(cameraAngle.x);
-	float sx = sinf(cameraAngle.x);
+	const float cx = cosf(m_cameraAngle.x);
+	const float sx = sinf(m_cameraAngle.x);
 
-	float cx90 = cosf(cameraAngle.x + PI / 2);
-	float sx90 = sinf(cameraAngle.x + PI / 2);
+	const float cx90 = cosf(m_cameraAngle.x + PI * 0.5f);
+	const float sx90 = sinf(m_cameraAngle.x + PI * 0.5f);
 
-	float sy = sinf(cameraAngle.y);
-	float cy = cosf(cameraAngle.y);
+	const float sy = sinf(m_cameraAngle.y);
+	const float cy = cosf(m_cameraAngle.y);
 
-	float forwardX = cx * sy;
-	float forwardY = cy;
-	float forwardZ = sx * sy;
+	const float forwardX = cx * sy;
+	const float forwardY = cy;
+	const float forwardZ = sx * sy;
 
-	if (!cursorEnabled) 
+	if (!m_cursorEnabled)
 	{
 		if (IsKeyDown(KEY_SPACE) && m_canJump)
 		{
@@ -151,7 +149,7 @@ void PlayerCamera::checkInputs()
 			m_velocity.x += cx90 * m_speed;
 		}
 	}
-	//Place camera's target to the direction looking at.
+	// Place camera's target to the direction looking at.
 	m_camera.target.x = m_camera.position.x + forwardX;
 	m_camera.target.y = m_camera.position.y + forwardY;
 	m_camera.target.z = m_camera.position.z + forwardZ;
