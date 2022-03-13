@@ -15,5 +15,6 @@ public:
 
 private:
 	PlayerCamera m_playerCamera;
+	PlayerLogic m_playerLogic;
 	World m_world;
 };

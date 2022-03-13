@@ -4,6 +4,7 @@ class World;
 
 class PlayerCamera
 {
+	friend class PlayerLogic;
 public:
 	PlayerCamera();
 
@@ -31,4 +32,13 @@ private:
 	float m_speed = 0.125f / 6;
 	bool m_cursorEnabled = false;
 	bool m_canJump = true;
+};
+
+class PlayerLogic
+{
+public:
+	PlayerLogic(PlayerCamera& playerCamera);
+
+private:
+	Vector3& m_position;
 };

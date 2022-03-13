@@ -54,7 +54,7 @@ void PlayerCamera::Update(const World& world, float deltaTime)
 		m_velocity.y = 0.0f;
 	}
 
-	std::cout << "pos " << m_position.x << ":" << m_position.y << ":" << m_position.z << std::endl;
+	//std::cout << "pos " << m_position.x << ":" << m_position.y << ":" << m_position.z << std::endl;
 
 	m_camera.position = m_position;
 	m_camera.position.y += 0.5f;
@@ -176,5 +176,10 @@ void PlayerCamera::checkInputs()
 	m_camera.target.z = m_camera.position.z + forwardZ;
 
 	UpdateCamera(&m_camera);
+}
+//-----------------------------------------------------------------------------
+PlayerLogic::PlayerLogic(PlayerCamera& playerCamera)
+	: m_position(playerCamera.m_position)
+{
 }
 //-----------------------------------------------------------------------------

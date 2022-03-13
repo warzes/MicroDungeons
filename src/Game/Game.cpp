@@ -5,6 +5,7 @@
 //rlFPCamera cam;
 //-----------------------------------------------------------------------------
 Game::Game()
+	: m_playerLogic(m_playerCamera)
 {
 	//cam.Setup(45, Vector3{ 1, 0, 0 });
 	//cam.MoveSpeed.z = 10;
