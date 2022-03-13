@@ -1,6 +1,11 @@
 #pragma once
 
 #if defined(_MSC_VER)
+#	pragma warning(disable : 4514)
+#	pragma warning(disable : 4626)
+#	pragma warning(disable : 4820)
+#	pragma warning(disable : 5027)
+#	pragma warning(disable : 5045)
 #	pragma warning(push, 0)
 //#	pragma warning(disable : 4365)
 #endif
@@ -11,8 +16,6 @@
 #include <RLFrustum.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtx/vector_angle.hpp>
-#include <glm/gtc/random.hpp>
 
 #include <iostream>
 #include <set>

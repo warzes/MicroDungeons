@@ -35,17 +35,29 @@ enum class TileVertexId
 };
 //-----------------------------------------------------------------------------
 // Tile vertex positions which then make up sides. References TileVertexId.
+//inline static constexpr std::array<glm::vec3, 8> TileVertexPositions
+//{
+//	glm::vec3{0.0f, 0.0f, 0.0f},
+//	glm::vec3{1.0f, 0.0f, 0.0f},
+//	glm::vec3{0.0f, 0.0f, 1.0f},
+//	glm::vec3{1.0f, 0.0f, 1.0f},
+//
+//	glm::vec3{0.0f, 1.0f, 0.0f},
+//	glm::vec3{1.0f, 1.0f, 0.0f},
+//	glm::vec3{0.0f, 1.0f, 1.0f},
+//	glm::vec3{1.0f, 1.0f, 1.0f},
+//};
 inline static constexpr std::array<glm::vec3, 8> TileVertexPositions
 {
-	glm::vec3{0.0f, 0.0f, 0.0f},
-	glm::vec3{1.0f, 0.0f, 0.0f},
-	glm::vec3{0.0f, 0.0f, 1.0f},
-	glm::vec3{1.0f, 0.0f, 1.0f},
+	glm::vec3{-0.5f, 0.0f, -0.5f},
+	glm::vec3{0.5f, 0.0f, -0.5f},
+	glm::vec3{-0.5f, 0.0f, 0.5f},
+	glm::vec3{0.5f, 0.0f, 0.5f},
 
-	glm::vec3{0.0f, 1.0f, 0.0f},
-	glm::vec3{1.0f, 1.0f, 0.0f},
-	glm::vec3{0.0f, 1.0f, 1.0f},
-	glm::vec3{1.0f, 1.0f, 1.0f},
+	glm::vec3{-0.5f, 1.0f, -0.5f},
+	glm::vec3{0.5f, 1.0f, -0.5f},
+	glm::vec3{-0.5f, 1.0f, 0.5f},
+	glm::vec3{0.5f, 1.0f, 0.5f},
 };
 //-----------------------------------------------------------------------------
 // Tile texture coordinates. Order is always 0->1->2->3.
@@ -186,9 +198,9 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 		m_mesh.normals[3 * i + 1] = 1.0f;
 		m_mesh.normals[3 * i + 2] = 0.0f;
 
-		m_mesh.colors[4 * i + 0] = vertexData[i].color.x * 255.0f;
-		m_mesh.colors[4 * i + 1] = vertexData[i].color.y * 255.0f;
-		m_mesh.colors[4 * i + 2] = vertexData[i].color.z * 255.0f;
+		m_mesh.colors[4 * i + 0] = (unsigned char)(vertexData[i].color.x * 255.0f);
+		m_mesh.colors[4 * i + 1] = (unsigned char)(vertexData[i].color.y * 255.0f);
+		m_mesh.colors[4 * i + 2] = (unsigned char)(vertexData[i].color.z * 255.0f);
 		m_mesh.colors[4 * i + 3] = 255;
 	}
 

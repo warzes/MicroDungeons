@@ -11,7 +11,7 @@ Game::Game()
 	//cam.MoveSpeed.x = 5;
 	//cam.FarPlane = 5000;
 
-	m_playerCamera.Init({ 5.0f, 0.0f, 0.0f }, 180, 90);
+	m_playerCamera.Init({ 5.0f, 0.0f, 10.0f }, 180, 90);
 	m_world.Init();
 }
 //-----------------------------------------------------------------------------

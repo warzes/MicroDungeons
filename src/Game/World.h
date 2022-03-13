@@ -27,7 +27,9 @@ public:
 	void Close();
 
 	TileInfo* GetTile(glm::ivec2 tilePosition);
+	const TileInfo* GetTile(glm::ivec2 tilePosition) const;
 	glm::vec4 GetLight(glm::vec2 position);
+	glm::ivec2 Size() const;
 
 private:
 	glm::ivec2 chunkPosition(glm::ivec2 tilePosition);

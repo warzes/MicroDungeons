@@ -3,7 +3,7 @@
 enum class TileType : uint8_t
 {
 	Air = 0,
-	Wall
+	Wall // TODO: rename Solid
 };
 
 struct TileInfo
@@ -29,6 +29,7 @@ public:
 	WorldData(const char* file);
 
 	TileInfo* GetTile(glm::ivec2 tilePosition);
+	const TileInfo* GetTile(glm::ivec2 tilePosition) const;
 	glm::vec3 GetTileLight(glm::ivec2 tilePosition);
 
 	glm::ivec2 Size() const;

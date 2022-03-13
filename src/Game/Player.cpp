@@ -13,8 +13,10 @@ PlayerCamera::PlayerCamera()
 	m_camera.fovy = 70.0f;
 	m_camera.projection = CAMERA_PERSPECTIVE;
 
-	m_collisionBox.min = { 0.0f, 0.0f, 0.0f };
-	m_collisionBox.max = { 0.4f, 0.6f, 0.4f };
+	//m_collisionBox.min = { 0.0f, 0.0f, 0.0f };
+	//m_collisionBox.max = { 0.4f, 0.6f, 0.4f };
+	m_collisionBox.min = { -0.2f, 0.0f, -0.2f };
+	m_collisionBox.max = {  0.2f, 0.6f,  0.2f };
 }
 //-----------------------------------------------------------------------------
 PlayerCamera* PlayerCamera::Get()
@@ -52,6 +54,8 @@ void PlayerCamera::Update(const World& world, float deltaTime)
 		m_velocity.y = 0.0f;
 	}
 
+	std::cout << "pos " << m_position.x << ":" << m_position.y << ":" << m_position.z << std::endl;
+
 	m_camera.position = m_position;
 	m_camera.position.y += 0.5f;
 
@@ -67,7 +71,24 @@ bool PlayerCamera::TestCollision(const World& world)
 	pB.min = Vector3Add(pB.min, m_position);
 	pB.max = Vector3Add(pB.max, m_position);
 
-	// TODO:
+	for (int x = (int)(pB.min.x - 1.5); x < (int)(pB.max.x + 1.5); x++)
+	{
+		for (int z = (int)(pB.min.z - 1.5); z < (int)(pB.max.z + 1.5); z++)
+		{
+			//for (int y = (int)(pB.min.y - 1); y < (int)(pB.max.y + 1); y++) // hight
+			{
+
+				if (pB.min.x < 0 || pB.min.y < 0 || pB.min.z < 0 || pB.max.x > world.Size().x || pB.max.z > world.Size().y) return true;
+				auto tileInfo = world.GetTile({ x, z });
+				if (!tileInfo || tileInfo->type != TileType::Wall) continue;
+
+				BoundingBox blockB;
+				blockB.min = { (float)x - 0.5f, 0.0f, (float)z - 0.5f };
+				blockB.max = { (float)x + 0.5f, 1.0f, (float)z + 0.5f };
+				if (CheckCollisionBoxes(pB, blockB)) return true;
+			}
+		}
+	}
 
 	return false;
 }

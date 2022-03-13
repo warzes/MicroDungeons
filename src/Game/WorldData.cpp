@@ -21,7 +21,7 @@ WorldData::WorldData(const char* file)
 			else
 			{
 				int t = rand() % 100;
-				if (t < 2) tileInfo.type = TileType::Wall;
+				if (t < 4) tileInfo.type = TileType::Wall;
 			}
 
 			tileInfo.textureCeiling = 2;
@@ -49,7 +49,13 @@ TileInfo* WorldData::GetTile(glm::ivec2 tilePosition)
 {
 	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
 		return nullptr;
-
+	return &m_tileInfo[tilePosition.y * m_size.x + tilePosition.x];
+}
+//-----------------------------------------------------------------------------
+const TileInfo* WorldData::GetTile(glm::ivec2 tilePosition) const
+{
+	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
+		return nullptr;
 	return &m_tileInfo[tilePosition.y * m_size.x + tilePosition.x];
 }
 //-----------------------------------------------------------------------------
