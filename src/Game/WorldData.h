@@ -3,6 +3,7 @@
 enum class TileType : uint8_t
 {
 	Air = 0,
+	Temp,
 	Wall // TODO: rename Solid
 };
 
@@ -17,7 +18,7 @@ struct TileInfo
 
 inline constexpr bool IsTileTypeOpaque(TileType tileType)
 {
-	return tileType != TileType::Air;
+	return tileType != TileType::Air && tileType != TileType::Temp;
 }
 
 inline static constexpr uint64_t ChunkSize = 16;

@@ -150,6 +150,10 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 				createVerticesFunc(TileSide::Bottom);
 				createVerticesFunc(TileSide::Top);
 			}
+			else if (tile->type == TileType::Temp)
+			{
+				createVerticesFunc(TileSide::Bottom);
+			}
 			else if (tile->type == TileType::Wall)
 			{
 				auto tileSouth = m_world.GetTile({ x, y + 1 });

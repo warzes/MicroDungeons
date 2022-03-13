@@ -4,7 +4,6 @@
 #include "WorldChunk.h"
 
 namespace std {
-
 	template<>
 	struct hash<glm::ivec2>
 	{
@@ -16,7 +15,6 @@ namespace std {
 			return ((hash<int32_t>()(k.x) ^ (hash<int32_t>()(k.y) << 1)) >> 1);
 		}
 	};
-
 } // namespace std
 
 class World
@@ -36,4 +34,7 @@ private:
 
 	WorldData* m_worldData = nullptr;
 	std::unordered_map<glm::ivec2, WorldChunk> m_chunks;
+	Texture m_textureTileset;
+	Shader m_chunkShader;
+	int m_uniformFogDensity;
 };
