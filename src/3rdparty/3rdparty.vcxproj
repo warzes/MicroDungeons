@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RaylibOperators.h" />
     <ClInclude Include="raylib\config.h" />
     <ClInclude Include="raylib\raudio.h" />
     <ClInclude Include="raylib\raylib.h" />

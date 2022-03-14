@@ -12,6 +12,7 @@
 
 #include <raylib/raylib.h>
 #include <raylib/rlgl.h>
+#include <RaylibOperators.h>
 #include <rlFPCamera.h>
 #include <RLFrustum.h>
 

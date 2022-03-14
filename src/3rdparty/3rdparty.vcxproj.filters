@@ -32,6 +32,7 @@
     </ClInclude>
     <ClInclude Include="rlFPCamera.h" />
     <ClInclude Include="rlFrustum.h" />
+    <ClInclude Include="RaylibOperators.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="raylib\raudio.c">
