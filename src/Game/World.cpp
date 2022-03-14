@@ -70,7 +70,7 @@ void World::Init()
 	m_chunkShader = LoadShaderFromMemory(chunkShaderVs, chunkShaderFs);
 	m_uniformFogDensity = GetShaderLocation(m_chunkShader, "uniformFogDensity");
 
-	m_textureTileset = LoadTexture("tileset_textures.png");
+	m_textureTileset = LoadTexture("../data/textures/tileset_textures.png");
 	SetTextureFilter(m_textureTileset, TEXTURE_FILTER_POINT);
 	SetTextureWrap(m_textureTileset, TEXTURE_WRAP_MIRROR_REPEAT);
 
