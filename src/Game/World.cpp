@@ -123,7 +123,7 @@ const TileInfo* World::GetTile(glm::ivec2 tilePosition) const
 //-----------------------------------------------------------------------------
 glm::vec4 World::GetLight(glm::vec2 position)
 {
-	const glm::vec3 lightCurrent = m_worldData->GetTileLight(position);
+	const Vector3 lightCurrent = m_worldData->GetTileLight(position);
 
 	const int64_t x = (int64_t)position.x;
 	const int64_t y = (int64_t)position.y;
@@ -144,12 +144,12 @@ glm::vec4 World::GetLight(glm::vec2 position)
 
 	const glm::vec2 interpolationCoefficient = position - glm::vec2(glm::ivec2(position));
 
-	const auto north_interpolated = glm::mix(northwest, northeast, interpolationCoefficient.x);
-	const auto south_interpolated = glm::mix(southwest, southeast, interpolationCoefficient.x);
-	const auto final_interpolated = glm::mix(north_interpolated, south_interpolated, interpolationCoefficient.y);
+	const auto north_interpolated = Mix(northwest, northeast, interpolationCoefficient.x);
+	const auto south_interpolated = Mix(southwest, southeast, interpolationCoefficient.x);
+	const auto final_interpolated = Mix(north_interpolated, south_interpolated, interpolationCoefficient.y);
 
 	static constexpr glm::vec4 ambientColor{ 0.25f, 0.25f, 0.25f, 1.0f };
-	return ambientColor + glm::vec4{ final_interpolated, 1.0f } *(glm::vec4(1, 1, 1, 1) - ambientColor);
+	return ambientColor + glm::vec4{ final_interpolated.x, final_interpolated.y, final_interpolated.z, 1.0f } *(glm::vec4(1, 1, 1, 1) - ambientColor);
 }
 //-----------------------------------------------------------------------------
 glm::ivec2 World::Size() const

@@ -13,7 +13,7 @@ struct TileInfo
 	uint16_t textureWall;
 	uint16_t textureFloor;
 	uint16_t textureCeiling;
-	glm::vec3 lighting;
+	Vector3 lighting;
 };
 
 inline constexpr bool IsTileTypeOpaque(TileType tileType)
@@ -31,11 +31,11 @@ public:
 
 	TileInfo* GetTile(glm::ivec2 tilePosition);
 	const TileInfo* GetTile(glm::ivec2 tilePosition) const;
-	glm::vec3 GetTileLight(glm::ivec2 tilePosition);
+	Vector3 GetTileLight(glm::ivec2 tilePosition);
 
 	glm::ivec2 Size() const;
 
-	void PerformRadiosity(glm::ivec2 tilePosition, glm::vec3 lightSource);
+	void PerformRadiosity(glm::ivec2 tilePosition, Vector3 lightSource);
 private:
 	glm::ivec2 m_size;
 

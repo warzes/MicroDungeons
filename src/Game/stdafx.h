@@ -29,3 +29,9 @@
 #endif
 
 #include "Globals.h"
+
+
+inline Vector3 Mix(const Vector3& x, const Vector3& y, float a)
+{
+	return (x * (1.0f - a) + y * a);
+}
