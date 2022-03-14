@@ -45,44 +45,44 @@ WorldData::WorldData(const char* file)
 	}
 }
 //-----------------------------------------------------------------------------
-TileInfo* WorldData::GetTile(glm::ivec2 tilePosition)
+TileInfo* WorldData::GetTile(Point2 tilePosition)
 {
 	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
 		return nullptr;
 	return &m_tileInfo[tilePosition.y * m_size.x + tilePosition.x];
 }
 //-----------------------------------------------------------------------------
-const TileInfo* WorldData::GetTile(glm::ivec2 tilePosition) const
+const TileInfo* WorldData::GetTile(Point2 tilePosition) const
 {
 	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
 		return nullptr;
 	return &m_tileInfo[tilePosition.y * m_size.x + tilePosition.x];
 }
 //-----------------------------------------------------------------------------
-Vector3 WorldData::GetTileLight(glm::ivec2 tilePosition)
+Vector3 WorldData::GetTileLight(Point2 tilePosition)
 {
 	auto currentTile = GetTile(tilePosition);
 	return currentTile ? currentTile->lighting : Vector3{ 0.0f, 0.0f, 0.0f };
 }
 //-----------------------------------------------------------------------------
-glm::ivec2 WorldData::Size() const
+Point2 WorldData::Size() const
 {
 	return m_size;
 }
 //-----------------------------------------------------------------------------
-void WorldData::PerformRadiosity(glm::ivec2 tilePosition, Vector3 lightSource)
+void WorldData::PerformRadiosity(Point2 tilePosition, Vector3 lightSource)
 {
-	std::queue<std::pair<glm::ivec2, Vector3>> frontier;
+	std::queue<std::pair<Point2, Vector3>> frontier;
 	std::set<std::tuple<int32_t, int32_t>> visited;
 
 	frontier.push({ tilePosition, lightSource });
 
 	while (!frontier.empty())
 	{
-		std::pair<glm::ivec2, Vector3> current = frontier.front();
+		auto current = frontier.front();
 		frontier.pop();
 
-		glm::ivec2 currentPosition = current.first;
+		Point2 currentPosition = current.first;
 		Vector3 currentLightLevel = current.second;
 
 		if (visited.count({ currentPosition.x, currentPosition.y }))
@@ -110,10 +110,10 @@ void WorldData::PerformRadiosity(glm::ivec2 tilePosition, Vector3 lightSource)
 		if (nextLighting.y < 0.0f) nextLighting.y = 0.0f;
 		if (nextLighting.z < 0.0f) nextLighting.z = 0.0f;
 
-		frontier.push({ currentPosition - glm::ivec2(-1, 0), nextLighting });
-		frontier.push({ currentPosition - glm::ivec2(1, 0),  nextLighting });
-		frontier.push({ currentPosition - glm::ivec2(0, -1), nextLighting });
-		frontier.push({ currentPosition - glm::ivec2(0, 1),  nextLighting });
+		frontier.push({ currentPosition - Point2(-1, 0), nextLighting });
+		frontier.push({ currentPosition - Point2(1, 0),  nextLighting });
+		frontier.push({ currentPosition - Point2(0, -1), nextLighting });
+		frontier.push({ currentPosition - Point2(0, 1),  nextLighting });
 	}
 }
 //-----------------------------------------------------------------------------

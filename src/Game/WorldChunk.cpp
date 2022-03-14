@@ -4,11 +4,11 @@
 //-----------------------------------------------------------------------------
 struct VertexWorldChunk
 {
-	VertexWorldChunk(glm::vec3 position, glm::vec2 uv, glm::vec4 color) : position(position), uv(uv), color(color) {}
+	VertexWorldChunk(Vector3 position, Vector2 uv, Vector4 color) : position(position), uv(uv), color(color) {}
 
-	glm::vec3 position;
-	glm::vec2 uv;
-	glm::vec4 color;
+	Vector3 position;
+	Vector2 uv;
+	Vector4 color;
 };
 //-----------------------------------------------------------------------------
 enum class TileSide
@@ -47,26 +47,26 @@ enum class TileVertexId
 //	glm::vec3{0.0f, 1.0f, 1.0f},
 //	glm::vec3{1.0f, 1.0f, 1.0f},
 //};
-inline static constexpr std::array<glm::vec3, 8> TileVertexPositions
+inline static constexpr std::array<Vector3, 8> TileVertexPositions
 {
-	glm::vec3{-0.5f, 0.0f, -0.5f},
-	glm::vec3{0.5f, 0.0f, -0.5f},
-	glm::vec3{-0.5f, 0.0f, 0.5f},
-	glm::vec3{0.5f, 0.0f, 0.5f},
+	Vector3{-0.5f, 0.0f, -0.5f},
+	Vector3{0.5f, 0.0f, -0.5f},
+	Vector3{-0.5f, 0.0f, 0.5f},
+	Vector3{0.5f, 0.0f, 0.5f},
 
-	glm::vec3{-0.5f, 1.0f, -0.5f},
-	glm::vec3{0.5f, 1.0f, -0.5f},
-	glm::vec3{-0.5f, 1.0f, 0.5f},
-	glm::vec3{0.5f, 1.0f, 0.5f},
+	Vector3{-0.5f, 1.0f, -0.5f},
+	Vector3{0.5f, 1.0f, -0.5f},
+	Vector3{-0.5f, 1.0f, 0.5f},
+	Vector3{0.5f, 1.0f, 0.5f},
 };
 //-----------------------------------------------------------------------------
 // Tile texture coordinates. Order is always 0->1->2->3.
-inline static constexpr std::array<glm::vec2, 4> TileVertexUVs
+inline static constexpr std::array<Vector2, 4> TileVertexUVs
 {
-	glm::vec2{0.0f, 0.0f},
-	glm::vec2{1.0f, 0.0f},
-	glm::vec2{0.0f, 1.0f},
-	glm::vec2{1.0f, 1.0f},
+	Vector2{0.0f, 0.0f},
+	Vector2{1.0f, 0.0f},
+	Vector2{0.0f, 1.0f},
+	Vector2{1.0f, 1.0f},
 };
 //-----------------------------------------------------------------------------
 // Indices reference TileSide.
@@ -82,7 +82,7 @@ inline static constexpr std::array<std::array<int32_t, 6>, 6> SideVertexIndices 
 //-----------------------------------------------------------------------------
 inline static constexpr std::array<int32_t, 6> VertexUVIndices = { 0, 2, 1, 2, 3, 1 };
 //-----------------------------------------------------------------------------
-WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShader, glm::ivec2 position)
+WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShader, Point2 position)
 	: m_world(world)
 	, m_position(position)
 {
@@ -92,7 +92,7 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 		for (auto x = m_position.x; x < m_position.x + ChunkSize; ++x)
 		{
 			TileInfo* tile = m_world.GetTile({ x, y });
-			glm::vec3 offset{ x, 0, y };
+			Vector3 offset{ x, 0, y };
 
 			auto createVerticesFunc = [&](TileSide side) 
 			{
@@ -109,36 +109,36 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 					const auto vertexIndex = vertexIndices[i];
 					const auto position = TileVertexPositions[vertexIndex] + offset;
 
-					static constexpr glm::vec2 uvSize
+					static constexpr Vector2 uvSize
 					{
 						1.0f / TilesetSize,
 						1.0f / TilesetSize,
 					};
-					const glm::vec2 tileUV
+					const Vector2 tileUV
 					{ 
 						(float)(tileTexture % TilesetSize) / TilesetSize,
 						(float)(tileTexture / TilesetSize) / TilesetSize 
 					};
 					auto tileUVFactors = TileVertexUVs[VertexUVIndices[i]];
 
-					glm::vec2 uv
+					Vector2 uv
 					{
 						tileUV.x + tileUVFactors.x * uvSize.x,
 						tileUV.y + tileUVFactors.y * uvSize.y,
 					};
 
-					glm::vec4 color{};
+					Vector4 color{};
 
 					switch (static_cast<TileVertexId>(vertexIndex))
 					{
 					case TileVertexId::BottomNorthwest:
-					case TileVertexId::TopNorthwest: color = m_world.GetLight({ x, y }); break;
+					case TileVertexId::TopNorthwest: color = m_world.GetLight(Vector2( x, y )); break;
 					case TileVertexId::BottomNortheast:
-					case TileVertexId::TopNortheast: color = m_world.GetLight({ x + 1, y }); break;
+					case TileVertexId::TopNortheast: color = m_world.GetLight(Vector2(x + 1, y )); break;
 					case TileVertexId::BottomSouthwest:
-					case TileVertexId::TopSouthwest: color = m_world.GetLight({ x, y + 1 }); break;
+					case TileVertexId::TopSouthwest: color = m_world.GetLight(Vector2( x, y + 1 )); break;
 					case TileVertexId::BottomSoutheast:
-					case TileVertexId::TopSoutheast: color = m_world.GetLight({ x + 1, y + 1 }); break;
+					case TileVertexId::TopSoutheast: color = m_world.GetLight(Vector2( x + 1, y + 1 )); break;
 					}
 
 					vertexData.emplace_back(position, uv, color);

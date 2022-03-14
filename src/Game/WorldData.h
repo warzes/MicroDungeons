@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Other.h"
+
 enum class TileType : uint8_t
 {
 	Air = 0,
@@ -29,15 +31,15 @@ class WorldData
 public:
 	WorldData(const char* file);
 
-	TileInfo* GetTile(glm::ivec2 tilePosition);
-	const TileInfo* GetTile(glm::ivec2 tilePosition) const;
-	Vector3 GetTileLight(glm::ivec2 tilePosition);
+	TileInfo* GetTile(Point2 tilePosition);
+	const TileInfo* GetTile(Point2 tilePosition) const;
+	Vector3 GetTileLight(Point2 tilePosition);
 
-	glm::ivec2 Size() const;
+	Point2 Size() const;
 
-	void PerformRadiosity(glm::ivec2 tilePosition, Vector3 lightSource);
+	void PerformRadiosity(Point2 tilePosition, Vector3 lightSource);
 private:
-	glm::ivec2 m_size;
+	Point2 m_size;
 
 	std::vector<TileInfo> m_tileInfo;
 };

@@ -46,6 +46,16 @@ inline Vector3 operator*(const Vector3& v, float scalar)
 	return { v.x * scalar, v.y * scalar, v.z * scalar };
 }
 
+inline Vector4 operator*(const Vector4& v, float scalar)
+{
+	return { v.x * scalar, v.y * scalar, v.z * scalar, v.w * scalar };
+}
+
+inline Vector4 operator*(const Vector4& a, const Vector4& b)
+{
+	return { a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w };
+}
+
 inline Vector2 operator/(const Vector2& a, const float b) 
 {
 	assert(b != 0.0 && "Division by zero error.");

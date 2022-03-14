@@ -55,6 +55,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>Game\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Other.h">
+      <Filter>Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -68,6 +71,9 @@
     </Filter>
     <Filter Include="Game\Enemy">
       <UniqueIdentifier>{06ad6fb8-0097-42bf-beba-62f1c63f0f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{922e1ff6-78e1-498c-aa1f-2f04edbe3e0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -111,22 +111,22 @@ void World::Close()
 	delete m_worldData;
 }
 //-----------------------------------------------------------------------------
-TileInfo* World::GetTile(glm::ivec2 tilePosition)
+TileInfo* World::GetTile(Point2 tilePosition)
 {
 	return m_worldData->GetTile(tilePosition);
 }
 //-----------------------------------------------------------------------------
-const TileInfo* World::GetTile(glm::ivec2 tilePosition) const
+const TileInfo* World::GetTile(Point2 tilePosition) const
 {
 	return m_worldData->GetTile(tilePosition);
 }
 //-----------------------------------------------------------------------------
-glm::vec4 World::GetLight(glm::vec2 position)
+Vector4 World::GetLight(Vector2 position)
 {
-	const Vector3 lightCurrent = m_worldData->GetTileLight(position);
+	const Vector3 lightCurrent = m_worldData->GetTileLight({ (int)position.x, (int)position.y });
 
-	const int64_t x = (int64_t)position.x;
-	const int64_t y = (int64_t)position.y;
+	const int x = (int)position.x;
+	const int y = (int)position.y;
 
 	const auto light_north = m_worldData->GetTileLight({ x, y - 1 });
 	const auto light_northwest = m_worldData->GetTileLight({ x - 1, y - 1 });
@@ -142,31 +142,29 @@ glm::vec4 World::GetLight(glm::vec2 position)
 	const auto southwest = (light_west + light_southwest + light_south + lightCurrent) / 4.0f;
 	const auto southeast = (light_south + light_southeast + light_east + lightCurrent) / 4.0f;
 
-	const glm::vec2 interpolationCoefficient = position - glm::vec2(glm::ivec2(position));
+	const Vector2 interpolationCoefficient = position - Vector2(x, y);
 
 	const auto north_interpolated = Mix(northwest, northeast, interpolationCoefficient.x);
 	const auto south_interpolated = Mix(southwest, southeast, interpolationCoefficient.x);
 	const auto final_interpolated = Mix(north_interpolated, south_interpolated, interpolationCoefficient.y);
 
-	static constexpr glm::vec4 ambientColor{ 0.25f, 0.25f, 0.25f, 1.0f };
-	return ambientColor + glm::vec4{ final_interpolated.x, final_interpolated.y, final_interpolated.z, 1.0f } *(glm::vec4(1, 1, 1, 1) - ambientColor);
+	static constexpr Vector4 ambientColor{ 0.25f, 0.25f, 0.25f, 1.0f };
+	return ambientColor + Vector4{ final_interpolated.x, final_interpolated.y, final_interpolated.z, 1.0f } * (Vector4(1, 1, 1, 1) - ambientColor);
 }
 //-----------------------------------------------------------------------------
-glm::ivec2 World::Size() const
+Point2 World::Size() const
 {
 	return m_worldData->Size();
 }
 //-----------------------------------------------------------------------------
-glm::ivec2 World::chunkPosition(glm::ivec2 tilePosition)
+Point2 World::chunkPosition(Point2 tilePosition)
 {
-	glm::ivec2 chunkPosition;
-	for (auto i = 0; i < 2; ++i)
-	{
-		if (tilePosition[i] >= 0)
-			chunkPosition[i] = tilePosition[i] / ChunkSize;
-		else
-			chunkPosition[i] = ((tilePosition[i] + 1) / ChunkSize) - 1;
-	}
+	Point2 chunkPosition;
+	if (tilePosition.x >= 0) chunkPosition.x = tilePosition.x / ChunkSize;
+	else chunkPosition.x = ((tilePosition.x + 1) / ChunkSize) - 1;
+	
+	if (tilePosition.y >= 0) chunkPosition.y = tilePosition.y / ChunkSize;
+	else chunkPosition.y = ((tilePosition.y + 1) / ChunkSize) - 1;
 
 	return chunkPosition;
 }

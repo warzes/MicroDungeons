@@ -5,9 +5,9 @@
 
 namespace std {
 	template<>
-	struct hash<glm::ivec2>
+	struct hash<Point2>
 	{
-		std::size_t operator()(const glm::ivec2& k) const
+		std::size_t operator()(const Point2& k) const
 		{
 			using std::hash;
 
@@ -15,6 +15,7 @@ namespace std {
 			return ((hash<int32_t>()(k.x) ^ (hash<int32_t>()(k.y) << 1)) >> 1);
 		}
 	};
+
 } // namespace std
 
 class World
@@ -24,16 +25,16 @@ public:
 	void Frame();
 	void Close();
 
-	TileInfo* GetTile(glm::ivec2 tilePosition);
-	const TileInfo* GetTile(glm::ivec2 tilePosition) const;
-	glm::vec4 GetLight(glm::vec2 position);
-	glm::ivec2 Size() const;
+	TileInfo* GetTile(Point2 tilePosition);
+	const TileInfo* GetTile(Point2 tilePosition) const;
+	Vector4 GetLight(Vector2 position);
+	Point2 Size() const;
 
 private:
-	glm::ivec2 chunkPosition(glm::ivec2 tilePosition);
+	Point2 chunkPosition(Point2 tilePosition);
 
 	WorldData* m_worldData = nullptr;
-	std::unordered_map<glm::ivec2, WorldChunk> m_chunks;
+	std::unordered_map<Point2, WorldChunk> m_chunks;
 	Texture m_textureTileset;
 	Shader m_chunkShader;
 	int m_uniformFogDensity;
