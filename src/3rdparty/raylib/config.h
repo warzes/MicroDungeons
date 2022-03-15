@@ -64,9 +64,9 @@
 // Allow automatic gif recording of current screen pressing CTRL+F12, defined in KeyCallback()
 //#define SUPPORT_GIF_RECORDING       1
 // Support CompressData() and DecompressData() functions
-#define SUPPORT_COMPRESSION_API     1
+//#define SUPPORT_COMPRESSION_API     1
 // Support saving binary data automatically to a generated storage.data file. This file is managed internally.
-#define SUPPORT_DATA_STORAGE        1
+//#define SUPPORT_DATA_STORAGE        1
 // Support automatic generated events, loading and recording of those events when required
 //#define SUPPORT_EVENTS_AUTOMATION     1
 // Support custom frame control, only for advance users
@@ -167,7 +167,7 @@
 // Support image export functionality (.png, .bmp, .tga, .jpg, .qoi)
 //#define SUPPORT_IMAGE_EXPORT        1
 // Support procedural image generation functionality (gradient, spot, perlin-noise, cellular)
-#define SUPPORT_IMAGE_GENERATION    1
+//#define SUPPORT_IMAGE_GENERATION    1
 // Support multiple image editing functions to scale, adjust colors, flip, draw on images, crop...
 // If not defined, still some functions are supported: ImageFormat(), ImageCrop(), ImageToPOT()
 #define SUPPORT_IMAGE_MANIPULATION  1
@@ -198,11 +198,11 @@
 // Module: rmodels - Configuration Flags
 //------------------------------------------------------------------------------------
 // Selected desired model fileformats to be supported for loading
-#define SUPPORT_FILEFORMAT_OBJ      1
-#define SUPPORT_FILEFORMAT_MTL      1
-#define SUPPORT_FILEFORMAT_IQM      1
-#define SUPPORT_FILEFORMAT_GLTF     1
-#define SUPPORT_FILEFORMAT_VOX      1
+//#define SUPPORT_FILEFORMAT_OBJ      1
+//#define SUPPORT_FILEFORMAT_MTL      1
+//#define SUPPORT_FILEFORMAT_IQM      1
+//#define SUPPORT_FILEFORMAT_GLTF     1
+//#define SUPPORT_FILEFORMAT_VOX      1
 // Support procedural mesh generation functions, uses external par_shapes.h library
 // NOTE: Some generated meshes DO NOT include generated texture coordinates
 #define SUPPORT_MESH_GENERATION     1
