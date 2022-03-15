@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "World.h"
+#include "EnemyManager.h"
 //-----------------------------------------------------------------------------
 static PlayerCamera* gPlayer = nullptr;
 #define MOUSE_SENSITIVITY 0.003f
@@ -33,7 +34,7 @@ void PlayerCamera::Init(const Vector3& startPosition, int rotationCamX, int rota
 	m_cameraAngle.y = (float)rotationCamY * DEG2RAD;
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::Update(const World& world, float deltaTime)
+void PlayerCamera::Update(const World& world, const EnemyManager& enemyManager, float deltaTime)
 {
 	//Gravity
 	m_velocity.y -= 0.012f * (deltaTime * 60.0f);
@@ -42,12 +43,12 @@ void PlayerCamera::Update(const World& world, float deltaTime)
 	Vector3 velXdt = Vector3Scale(m_velocity, deltaTime * 60.0f);
 
 	m_position.x += velXdt.x;
-	if (TestCollision(world)) m_position.x -= velXdt.x;
+	if (TestCollision(world, enemyManager)) m_position.x -= velXdt.x;
 	m_position.z += velXdt.z;
-	if (TestCollision(world)) m_position.z -= velXdt.z;
+	if (TestCollision(world, enemyManager)) m_position.z -= velXdt.z;
 
 	m_position.y += velXdt.y;
-	if (TestCollision(world) || m_position.y < 0.0f)
+	if (TestCollision(world, enemyManager) || m_position.y < 0.0f)
 	{
 		m_position.y -= velXdt.y;
 		if (m_velocity.y <= 0.0f) m_canJump = true;
@@ -65,30 +66,10 @@ void PlayerCamera::Update(const World& world, float deltaTime)
 	checkInputs();
 }
 //-----------------------------------------------------------------------------
-bool PlayerCamera::TestCollision(const World& world)
+bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyManager)
 {
-	BoundingBox pB = m_collisionBox;
-	pB.min = Vector3Add(pB.min, m_position);
-	pB.max = Vector3Add(pB.max, m_position);
-
-	for (int x = (int)(pB.min.x - 1.5); x < (int)(pB.max.x + 1.5); x++)
-	{
-		for (int z = (int)(pB.min.z - 1.5); z < (int)(pB.max.z + 1.5); z++)
-		{
-			//for (int y = (int)(pB.min.y - 1); y < (int)(pB.max.y + 1); y++) // hight
-			{
-
-				if (pB.min.x < 0 || pB.min.y < 0 || pB.min.z < 0 || pB.max.x > world.Size().x || pB.max.z > world.Size().y) return true;
-				auto tileInfo = world.GetTile({ x, z });
-				if (!tileInfo || tileInfo->type != TileType::Wall) continue;
-
-				BoundingBox blockB;
-				blockB.min = { (float)x - 0.5f, 0.0f, (float)z - 0.5f };
-				blockB.max = { (float)x + 0.5f, 1.0f, (float)z + 0.5f };
-				if (CheckCollisionBoxes(pB, blockB)) return true;
-			}
-		}
-	}
+	if (world.TestCollision(GetBoundingBox())) return true;
+	if (enemyManager.TestCollision(m_position, GetBoundingBox())) return true;
 
 	return false;
 }
@@ -104,6 +85,19 @@ void PlayerCamera::DisableCursor()
 	m_cursorEnabled = false;
 	::DisableCursor();
 	SetMousePosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
+}
+//-----------------------------------------------------------------------------
+BoundingBox PlayerCamera::GetBoundingBox() const
+{
+	BoundingBox pB = m_collisionBox;
+	pB.min = Vector3Add(pB.min, m_position);
+	pB.max = Vector3Add(pB.max, m_position);
+	return pB;
+}
+//-----------------------------------------------------------------------------
+Vector3 PlayerCamera::GetPosition() const
+{
+	return m_position;
 }
 //-----------------------------------------------------------------------------
 void PlayerCamera::checkInputs()

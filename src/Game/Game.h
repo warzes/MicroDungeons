@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "PlayerAnimation.h"
 #include "World.h"
-#include "Enemy.h"
+#include "EnemyManager.h"
 
 class Game
 {
@@ -20,7 +20,5 @@ private:
 	PlayerAnimation m_playerAnimation;
 	PlayerLogic m_playerLogic;
 	World m_world;
-
-#define ENEMIES 20
-	Enemy m_enemies[ENEMIES];
+	EnemyManager m_enemyManager;
 };

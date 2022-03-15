@@ -157,6 +157,30 @@ Point2 World::Size() const
 	return m_worldData->Size();
 }
 //-----------------------------------------------------------------------------
+bool World::TestCollision(const BoundingBox& bbox) const
+{
+	for (int x = (int)(bbox.min.x - 1.5); x < (int)(bbox.max.x + 1.5); x++)
+	{
+		for (int z = (int)(bbox.min.z - 1.5); z < (int)(bbox.max.z + 1.5); z++)
+		{
+			//for (int y = (int)(pB.min.y - 1); y < (int)(pB.max.y + 1); y++) // hight
+			{
+
+				if (bbox.min.x < 0 || bbox.min.y < 0 || bbox.min.z < 0 || bbox.max.x > Size().x || bbox.max.z > Size().y) return true;
+				auto tileInfo = GetTile({ x, z });
+				if (!tileInfo || tileInfo->type != TileType::Wall) continue;
+
+				BoundingBox blockB;
+				blockB.min = { (float)x - 0.5f, 0.0f, (float)z - 0.5f };
+				blockB.max = { (float)x + 0.5f, 1.0f, (float)z + 0.5f };
+				if (CheckCollisionBoxes(bbox, blockB)) return true;
+			}
+		}
+	}
+
+	return false;
+}
+//-----------------------------------------------------------------------------
 Point2 World::chunkPosition(Point2 tilePosition)
 {
 	Point2 chunkPosition;

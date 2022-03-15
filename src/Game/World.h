@@ -30,6 +30,8 @@ public:
 	Vector4 GetLight(Vector2 position);
 	Point2 Size() const;
 
+	bool TestCollision(const BoundingBox& bbox) const;
+
 private:
 	Point2 chunkPosition(Point2 tilePosition);
 

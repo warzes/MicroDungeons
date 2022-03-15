@@ -1,133 +1,121 @@
 #include "stdafx.h"
 #include "Enemy.h"
-
+#include "World.h"
+#include "EnemyManager.h"
+#include "Player.h"
+//-----------------------------------------------------------------------------
 void Enemy::Init()
 {
-	m_enemyStartPos.x = rand() % 32 - 16;
-	//enemyStartPos.y = -1.0f;
-	m_enemyStartPos.y = 0.5f;
+	m_enemyStartPos.x = rand() % 32;
+	m_enemyStartPos.y = 0.3f;
+	m_enemyStartPos.z = rand() % 32;
 
-	m_enemyStartPos.z = rand() % 32 - 16;
 	m_enemyBoxPos.x = m_enemyStartPos.x;
 	m_enemyBoxPos.y = m_enemyStartPos.y;
 	m_enemyBoxPos.z = m_enemyStartPos.z;
-	m_enemyBoxSize = { 0.8f, 1.0f, 0.8f };
+	m_enemyBoxSize = { 0.4f, 0.6f, 0.4f };
 	m_active = true;
 }
-
+//-----------------------------------------------------------------------------
 void Enemy::Draw()
 {
-	DrawCube(m_enemyBoxPos, 1.0f, 1.0f, 1.0f, RED);
+	DrawCube(m_enemyBoxPos, 0.4f, 0.6f, 0.4f, RED);
 }
-
-void Enemy::Update(const Camera& cam, int framesCounter)
+//-----------------------------------------------------------------------------
+void Enemy::Update(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world, float deltaTime)
 {
-	// Bounding boxes
-
-	// Attack Range
-	struct BoundingBox range = {
-		cam.target.x - 0.2f, cam.target.y - 0.0f, cam.target.z - 0.2f,
-		cam.target.x + 0.2f, cam.target.y + 1.0f, cam.target.z + 0.2f
-	};
-
-	//// Player Bounding Box
-	struct BoundingBox player = {
-		cam.position.x - 0.2f, cam.position.y - 0.0f, cam.position.z - 0.2f,
-		cam.position.x + 0.2f, cam.position.y + 0.6f, cam.position.z + 0.2f
-	};
-
 	if (m_active == true)
 	{
-		if (m_enemyBoxPos.y >= 0.5f)
+		// Follow player
+		int isStepX = 0;
+		int isStepZ = 0;
+		float stepSize = 2.0f*deltaTime;
+		if (playerCamera.GetPosition().x > m_enemyBoxPos.x)
 		{
-			// Follow player
-			if (cam.position.x > m_enemyBoxPos.x - 1.0f)
-			{
-				m_enemyBoxPos.x += 0.04f;
-			}
-			if (cam.position.x < m_enemyBoxPos.x + 1.0f)
-			{
-				m_enemyBoxPos.x -= 0.04f;
-			}
-			if (cam.position.z > m_enemyBoxPos.z - 1.0f)
-			{
-				m_enemyBoxPos.z += 0.04f;
-			}
-			if (cam.position.z < m_enemyBoxPos.z + 1.0f)
-			{
-				m_enemyBoxPos.z -= 0.04f;
-			}
-
-			// Define Bounding Box for enemy
-
-			struct BoundingBox cBounds = {
-				m_enemyBoxPos.x - 0.4f, 0.0f, m_enemyBoxPos.z - 0.4f,
-				m_enemyBoxPos.x + 0.4f, 1.0f, m_enemyBoxPos.z + 0.4f
-			};
-
-			m_enemyBounds = cBounds;
-
+			m_enemyBoxPos.x += stepSize;
+			if (testCollision(enemyManager, playerCamera, world)) m_enemyBoxPos.x -= stepSize;
+			else isStepX = 1;
 		}
-		else if (m_enemyBoxPos.y < 0.5f)
+		if (playerCamera.GetPosition().x < m_enemyBoxPos.x)
 		{
-			m_enemyBoxPos.y += 0.01f;
+			m_enemyBoxPos.x -= stepSize;
+			if (testCollision(enemyManager, playerCamera, world)) m_enemyBoxPos.x += stepSize;
+			else isStepX = -1;
+		}
+		if (playerCamera.GetPosition().z > m_enemyBoxPos.z)
+		{
+			m_enemyBoxPos.z += stepSize;
+			if (testCollision(enemyManager, playerCamera, world)) m_enemyBoxPos.z -= stepSize;
+			else isStepZ = 1;
+		}
+		if (playerCamera.GetPosition().z < m_enemyBoxPos.z)
+		{
+			m_enemyBoxPos.z -= stepSize;
+			if (testCollision(enemyManager, playerCamera, world)) m_enemyBoxPos.z += stepSize;
+			else isStepZ = -1;
 		}
 
-		// Attack player logic
+		//// Define Bounding Box for enemy
+		struct BoundingBox cBounds = {
+			m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f,
+			m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f
+		};
+		m_enemyBounds = cBounds;
 
-		if (CheckCollisionBoxes(player, m_enemyBounds) && m_enemyBoxPos.y >= 1.0f)
-		{
-			if (((framesCounter / 30) % 2) == 1)
-			{
-				//hp -= rand() % level + 1;
-				framesCounter = 0;
-			}
-		}
+		//// Attack player logic
+		//// Player Bounding Box
+		//struct BoundingBox player = {
+		//	cam.position.x - 0.2f, cam.position.y - 0.0f, cam.position.z - 0.2f,
+		//	cam.position.x + 0.2f, cam.position.y + 0.6f, cam.position.z + 0.2f
+		//};
+		//if (CheckCollisionBoxes(player, m_enemyBounds) && m_enemyBoxPos.y >= 1.0f)
+		//{
+		//	if (((framesCounter / 30) % 2) == 1)
+		//	{
+		//		//hp -= rand() % level + 1;
+		//		framesCounter = 0;
+		//	}
+		//}
 	}
 	// Respawn
 	else
 	{
-		m_enemyBoxPos.x = rand() % 32 - 16;
-		//enemyBoxPos.y = -1.5f;
-		m_enemyBoxPos.y = 0.5f;
-		m_enemyBoxPos.z = rand() % 32 - 16;
+		m_enemyBoxPos.x = rand() % 32;
+		m_enemyBoxPos.y = 0.3f;
+		m_enemyBoxPos.z = rand() % 32;
 
 		struct BoundingBox newBounds =
 		{
-			m_enemyBoxPos.x - 0.4f,
+			m_enemyBoxPos.x - 0.2f,
 			0.0f,
-			m_enemyBoxPos.z - 0.4f,
-			m_enemyBoxPos.x + 0.4f,
-			1.0f,
-			m_enemyBoxPos.z + 0.4f
+			m_enemyBoxPos.z - 0.2f,
+			m_enemyBoxPos.x + 0.2f,
+			0.6f,
+			m_enemyBoxPos.z + 0.2f
 		};
 
 		m_enemyBounds = newBounds;
 		m_active = true;
 	}
 }
-
-bool Enemy::PlayerAttack(const Camera& cam)
+//-----------------------------------------------------------------------------
+bool Enemy::PlayerAttack()
 {
-	// Attack Range
-	struct BoundingBox range = {
-		cam.target.x - 0.2f, cam.target.y - 0.0f, cam.target.z - 0.2f,
-		cam.target.x + 0.2f, cam.target.y + 1.0f, cam.target.z + 0.2f
+	m_active = false;
+	return true;
+}
+//-----------------------------------------------------------------------------
+bool Enemy::testCollision(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world) const
+{
+	struct BoundingBox cBounds = {
+		m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f,
+		m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f
 	};
 
-	//// Player Bounding Box
-	struct BoundingBox player = {
-		cam.position.x - 0.2f, cam.position.y - 0.0f, cam.position.z - 0.2f,
-		cam.position.x + 0.2f, cam.position.y + 0.6f, cam.position.z + 0.2f
-	};
-
-	if (CheckCollisionBoxes(range, m_enemyBounds))
-	{
-		//score += 100;
-		//level++;
-		m_active = false;
-		return true;
-	}
+	if (world.TestCollision(cBounds)) return true;
+	if (enemyManager.TestCollision(m_enemyBoxPos, cBounds)) return true;
+	if (CheckCollisionBoxes(cBounds, playerCamera.GetBoundingBox())) return true;
 
 	return false;
 }
+//-----------------------------------------------------------------------------

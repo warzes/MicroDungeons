@@ -6,7 +6,6 @@
 //rlFPCamera cam;
 static Model wallModel;
 static Vector2 posModel = { 3.0f, 3.0f };
-static int framesCounter = 0;
 //-----------------------------------------------------------------------------
 Game::Game()
 	: m_playerLogic(m_playerCamera)
@@ -22,10 +21,7 @@ Game::Game()
 
 	wallModel = LoadModelFromMesh(GenMeshCube(0.5f, 0.5f, 0.5f));
 
-	for (int i = 0; i < ENEMIES; i++)
-	{
-		m_enemies[i].Init();
-	}
+	m_enemyManager.Init();
 }
 //-----------------------------------------------------------------------------
 void Game::Frame()
@@ -42,10 +38,7 @@ void Game::Frame()
 
 		DrawModel(wallModel, { posModel.x, 0.5f, posModel.y }, 1.0f, BLUE);
 
-		for (int i = 0; i < ENEMIES; i++)
-		{
-			m_enemies[i].Draw();
-		}
+		m_enemyManager.Draw();
 	}
 	EndMode3D();
 	//cam.EndMode3D();
@@ -57,37 +50,32 @@ void Game::Frame()
 //-----------------------------------------------------------------------------
 void Game::Update()
 {
-	framesCounter++;
+	// Player logic
+	m_playerCamera.Update(m_world, m_enemyManager, GetFrameTime());
+	m_playerAnimation.Update(GetFrameTime());
 
-	//cam.Update();
-	m_playerCamera.Update(m_world, GetFrameTime());
-	
 	// Enemy logic
-	for (int i = 0; i < ENEMIES; i++)
+	m_enemyManager.Update(m_playerCamera, m_world, GetFrameTime());
+
+	// Player Attack Events
+	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
-		m_enemies[i].Update(m_playerCamera.GetCamera(), framesCounter);
+		m_playerAnimation.StartAnimationAttacking();
 	}
 
 	// Attack logic
-	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+	if (m_playerAnimation.IsEndAnimationAttack())
 	{
-		m_playerAnimation.StartAttacking();
-	}
-	m_playerAnimation.Update(m_playerCamera.GetCamera());
-
-	// Attack enemy logic
-
-	if (m_playerAnimation.IsAttack())
-	{
-		for (int i = 0; i < ENEMIES; i++)
-		{
-			m_enemies[i].PlayerAttack(m_playerCamera.GetCamera());
-		}
+		const Vector2 rayMousePos = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+		//ray = GetMouseRay(GetMousePosition(), m_playerCamera.GetCamera());
+		const Ray ray = GetMouseRay(rayMousePos, m_playerCamera.GetCamera());
+		m_enemyManager.PlayerAttack(m_playerCamera.GetCamera().position, ray);
 	}
 }
 //-----------------------------------------------------------------------------
 void Game::Close()
 {
+	m_enemyManager.Close();
 	m_playerAnimation.Close();
 	m_world.Close();
 }

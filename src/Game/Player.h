@@ -1,6 +1,7 @@
 #pragma once
 
 class World;
+class EnemyManager;
 
 class PlayerCamera
 {
@@ -12,11 +13,13 @@ public:
 
 	void Init(const Vector3& startPosition, int rotationCamX, int rotationCamY);
 
-	void Update(const World& world, float deltaTime);
+	void Update(const World& world, const EnemyManager& enemyManager, float deltaTime);
 
-	bool TestCollision(const World& world);
+	bool TestCollision(const World& world, const EnemyManager& enemyManager);
 
 	Camera GetCamera() const { return m_camera; }
+	BoundingBox GetBoundingBox() const;
+	Vector3 GetPosition() const;
 
 	void EnableCursor();
 	void DisableCursor();
