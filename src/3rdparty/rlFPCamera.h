@@ -48,7 +48,7 @@ public:
 
     float GetFOVX() const;
     Vector3 GetCameraPosition() const;
-    void SetCameraPosition(const Vector3&& pos);
+    void SetCameraPosition(const Vector3& pos);
 
     Ray GetViewRay() const;
     Vector3 GetForwardVector() const;

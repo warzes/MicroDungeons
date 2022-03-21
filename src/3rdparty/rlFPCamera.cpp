@@ -323,7 +323,7 @@ Vector3 rlFPCamera::GetCameraPosition() const
     return CameraPosition;
 }
 
-void rlFPCamera::SetCameraPosition(const Vector3&& pos)
+void rlFPCamera::SetCameraPosition(const Vector3& pos)
 { 
     CameraPosition = pos;
     Vector3 forward = Vector3Subtract(ViewCamera.target, ViewCamera.position);

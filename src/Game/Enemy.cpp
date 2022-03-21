@@ -19,7 +19,7 @@ void Enemy::Init()
 //-----------------------------------------------------------------------------
 void Enemy::Draw()
 {
-	DrawCube(m_enemyBoxPos, 0.4f, 0.6f, 0.4f, RED);
+	DrawCube(m_enemyBoxPos, 0.4f, 0.6f, 0.4f, MAROON);
 }
 //-----------------------------------------------------------------------------
 void Enemy::Update(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world, float deltaTime)
@@ -104,7 +104,7 @@ bool Enemy::PlayerAttack()
 bool Enemy::testCollision(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world) const
 {
 	struct BoundingBox cBounds = {
-		{ m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f },
+		{ m_enemyBoxPos.x - 0.2f, 0.0001f, m_enemyBoxPos.z - 0.2f },
 		{ m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f }
 	};
 

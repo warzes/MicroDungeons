@@ -198,7 +198,7 @@
 // Module: rmodels - Configuration Flags
 //------------------------------------------------------------------------------------
 // Selected desired model fileformats to be supported for loading
-//#define SUPPORT_FILEFORMAT_OBJ      1
+#define SUPPORT_FILEFORMAT_OBJ      1
 //#define SUPPORT_FILEFORMAT_MTL      1
 //#define SUPPORT_FILEFORMAT_IQM      1
 //#define SUPPORT_FILEFORMAT_GLTF     1

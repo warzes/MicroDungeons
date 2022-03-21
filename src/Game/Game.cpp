@@ -10,7 +10,7 @@ static Vector2 posModel = { 3.0f, 3.0f };
 Game::Game()
 	: m_playerLogic(m_playerCamera)
 {
-	//cam.Setup(45, Vector3{ 1, 0, 0 });
+	//cam.Setup(45, Vector3{ 0, 10, 0 });
 	//cam.MoveSpeed.z = 10;
 	//cam.MoveSpeed.x = 5;
 	//cam.FarPlane = 5000;
@@ -50,6 +50,11 @@ void Game::Frame()
 //-----------------------------------------------------------------------------
 void Game::Update()
 {
+	/*auto pos = m_playerCamera.GetPosition();
+	pos.y = 10;
+	cam.SetCameraPosition(pos);
+	cam.Update();*/
+
 	// Player logic
 	m_playerCamera.Update(m_world, m_enemyManager, GetFrameTime());
 	m_playerAnimation.Update(GetFrameTime());
@@ -67,7 +72,6 @@ void Game::Update()
 	if (m_playerAnimation.IsEndAnimationAttack())
 	{
 		const Vector2 rayMousePos = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
-		//ray = GetMouseRay(GetMousePosition(), m_playerCamera.GetCamera());
 		const Ray ray = GetMouseRay(rayMousePos, m_playerCamera.GetCamera());
 		m_enemyManager.PlayerAttack(m_playerCamera.GetCamera().position, ray);
 	}

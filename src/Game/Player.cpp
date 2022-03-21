@@ -28,7 +28,7 @@ PlayerCamera* PlayerCamera::Get()
 void PlayerCamera::Init(const Vector3& startPosition, int rotationCamX, int rotationCamY)
 {
 	SetCameraMode(m_camera, CAMERA_CUSTOM);
-	m_position = { startPosition.x, startPosition.y, startPosition.z };
+	m_position = { startPosition.x, startPosition.y+0.1f, startPosition.z };
 	this->DisableCursor();
 	m_cameraAngle.x = (float)rotationCamX * DEG2RAD;
 	m_cameraAngle.y = (float)rotationCamY * DEG2RAD;

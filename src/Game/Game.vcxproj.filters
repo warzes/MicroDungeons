@@ -64,6 +64,9 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>Game\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
