@@ -242,6 +242,7 @@
     //#include <android/sensor.h>           // Required for: Android sensors functions (accelerometer, gyroscope, light...)
     #include <android/window.h>             // Required for: AWINDOW_FLAG_FULLSCREEN definition and others
     #include <android_native_app_glue.h>    // Required for: android_app struct and activity management
+    #include <jni.h>                        // Required for: JNIEnv and JavaVM [Used in OpenURL()]
 
     #include <EGL/egl.h>                    // Native platform windowing system interface
     //#include <GLES2/gl2.h>                // OpenGL ES 2.0 library (not required in this module, only in rlgl)
@@ -2673,7 +2674,7 @@ void SetTargetFPS(int fps)
     if (fps < 1) CORE.Time.target = 0.0;
     else CORE.Time.target = 1.0/(double)fps;
 
-    TRACELOG(LOG_INFO, "TIMER: Target time per frame: %02.03f milliseconds", (float)CORE.Time.target*1000);
+    TRACELOG(LOG_INFO, "TIMER: Target time per frame: %02.03f milliseconds", (float)CORE.Time.target*1000.0f);
 }
 
 // Get current FPS
@@ -3443,7 +3444,7 @@ void OpenURL(const char *url)
 #if defined(PLATFORM_DESKTOP)
         char *cmd = (char *)RL_CALLOC(strlen(url) + 10, sizeof(char));
     #if defined(_WIN32)
-        sprintf(cmd, "explorer %s", url);
+        sprintf(cmd, "explorer \"%s\"", url);
     #endif
     #if defined(__linux__) || defined(__FreeBSD__)
         sprintf(cmd, "xdg-open '%s'", url); // Alternatives: firefox, x-www-browser
@@ -3457,6 +3458,29 @@ void OpenURL(const char *url)
 #endif
 #if defined(PLATFORM_WEB)
         emscripten_run_script(TextFormat("window.open('%s', '_blank')", url));
+#endif
+#if defined(PLATFORM_ANDROID)
+        JNIEnv *env = NULL;
+        JavaVM *vm = CORE.Android.app->activity->vm;
+        (*vm)->AttachCurrentThread(vm, &env, NULL);
+
+        jstring urlString = (*env)->NewStringUTF(env, url);
+        jclass uriClass = (*env)->FindClass(env, "android/net/Uri");
+        jmethodID uriParse = (*env)->GetStaticMethodID(env, uriClass, "parse", "(Ljava/lang/String;)Landroid/net/Uri;");
+        jobject uri = (*env)->CallStaticObjectMethod(env, uriClass, uriParse, urlString);
+
+        jclass intentClass = (*env)->FindClass(env, "android/content/Intent");
+        jfieldID actionViewId = (*env)->GetStaticFieldID(env, intentClass, "ACTION_VIEW", "Ljava/lang/String;");
+        jobject actionView = (*env)->GetStaticObjectField(env, intentClass, actionViewId);
+        jmethodID newIntent = (*env)->GetMethodID(env, intentClass, "<init>", "(Ljava/lang/String;Landroid/net/Uri;)V");
+        jobject intent = (*env)->AllocObject(env, intentClass);
+
+        (*env)->CallVoidMethod(env, intent, newIntent, actionView, uri);
+        jclass activityClass = (*env)->FindClass(env, "android/app/Activity");
+        jmethodID startActivity = (*env)->GetMethodID(env, activityClass, "startActivity", "(Landroid/content/Intent;)V");
+        (*env)->CallVoidMethod(env, CORE.Android.app->activity->clazz, startActivity, intent);
+
+        (*vm)->DetachCurrentThread(vm);
 #endif
     }
 }
@@ -5024,8 +5048,8 @@ void PollInputEvents(void)
             }
 
             // Register buttons for 2nd triggers (because GLFW doesn't count these as buttons but rather axis)
-            CORE.Input.Gamepad.currentButtonState[i][GAMEPAD_BUTTON_LEFT_TRIGGER_2] = (char)(CORE.Input.Gamepad.axisState[i][GAMEPAD_AXIS_LEFT_TRIGGER] > 0.1);
-            CORE.Input.Gamepad.currentButtonState[i][GAMEPAD_BUTTON_RIGHT_TRIGGER_2] = (char)(CORE.Input.Gamepad.axisState[i][GAMEPAD_AXIS_RIGHT_TRIGGER] > 0.1);
+            CORE.Input.Gamepad.currentButtonState[i][GAMEPAD_BUTTON_LEFT_TRIGGER_2] = (char)(CORE.Input.Gamepad.axisState[i][GAMEPAD_AXIS_LEFT_TRIGGER] > 0.1f);
+            CORE.Input.Gamepad.currentButtonState[i][GAMEPAD_BUTTON_RIGHT_TRIGGER_2] = (char)(CORE.Input.Gamepad.axisState[i][GAMEPAD_AXIS_RIGHT_TRIGGER] > 0.1f);
 
             CORE.Input.Gamepad.axisCount = GLFW_GAMEPAD_AXIS_LAST + 1;
         }
