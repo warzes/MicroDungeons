@@ -6,9 +6,9 @@
 //-----------------------------------------------------------------------------
 void Enemy::Init()
 {
-	m_enemyStartPos.x = rand() % 32;
+	m_enemyStartPos.x = static_cast<float>(rand() % 32);
 	m_enemyStartPos.y = 0.3f;
-	m_enemyStartPos.z = rand() % 32;
+	m_enemyStartPos.z = static_cast<float>(rand() % 32);
 
 	m_enemyBoxPos.x = m_enemyStartPos.x;
 	m_enemyBoxPos.y = m_enemyStartPos.y;
@@ -57,8 +57,8 @@ void Enemy::Update(const EnemyManager& enemyManager, const PlayerCamera& playerC
 
 		//// Define Bounding Box for enemy
 		struct BoundingBox cBounds = {
-			m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f,
-			m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f
+			{m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f},
+			{m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f}
 		};
 		m_enemyBounds = cBounds;
 
@@ -80,18 +80,14 @@ void Enemy::Update(const EnemyManager& enemyManager, const PlayerCamera& playerC
 	// Respawn
 	else
 	{
-		m_enemyBoxPos.x = rand() % 32;
+		m_enemyBoxPos.x = static_cast<float>(rand() % 32);
 		m_enemyBoxPos.y = 0.3f;
-		m_enemyBoxPos.z = rand() % 32;
+		m_enemyBoxPos.z = static_cast<float>(rand() % 32);
 
 		struct BoundingBox newBounds =
 		{
-			m_enemyBoxPos.x - 0.2f,
-			0.0f,
-			m_enemyBoxPos.z - 0.2f,
-			m_enemyBoxPos.x + 0.2f,
-			0.6f,
-			m_enemyBoxPos.z + 0.2f
+			{m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f},
+			{m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f}
 		};
 
 		m_enemyBounds = newBounds;
@@ -108,8 +104,8 @@ bool Enemy::PlayerAttack()
 bool Enemy::testCollision(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world) const
 {
 	struct BoundingBox cBounds = {
-		m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f,
-		m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f
+		{ m_enemyBoxPos.x - 0.2f, 0.0f, m_enemyBoxPos.z - 0.2f },
+		{ m_enemyBoxPos.x + 0.2f, 0.6f, m_enemyBoxPos.z + 0.2f }
 	};
 
 	if (world.TestCollision(cBounds)) return true;

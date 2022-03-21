@@ -26,7 +26,7 @@ public:
 private:
 	void checkInputs();
 
-	Camera m_camera = { 0 };
+	Camera m_camera = { };
 	Vector2 m_cameraAngle = { 0.0f, 0.0f };
 	Vector3 m_position;
 	Vector3 m_direction;

@@ -37,7 +37,7 @@ private:
 
 	WorldData* m_worldData = nullptr;
 	std::unordered_map<Point2, WorldChunk> m_chunks;
-	Texture m_textureTileset;
-	Shader m_chunkShader;
-	int m_uniformFogDensity;
+	Texture m_textureTileset = {};
+	Shader m_chunkShader = {};
+	int m_uniformFogDensity = 0;
 };

@@ -23,7 +23,7 @@ inline constexpr bool IsTileTypeOpaque(TileType tileType)
 	return tileType != TileType::Air && tileType != TileType::Temp;
 }
 
-inline static constexpr uint64_t ChunkSize = 16;
+inline static constexpr int ChunkSize = 16;
 inline static constexpr uint64_t TilesetSize = 16;
 
 class WorldData

@@ -35,19 +35,7 @@ enum class TileVertexId
 };
 //-----------------------------------------------------------------------------
 // Tile vertex positions which then make up sides. References TileVertexId.
-//inline static constexpr std::array<glm::vec3, 8> TileVertexPositions
-//{
-//	glm::vec3{0.0f, 0.0f, 0.0f},
-//	glm::vec3{1.0f, 0.0f, 0.0f},
-//	glm::vec3{0.0f, 0.0f, 1.0f},
-//	glm::vec3{1.0f, 0.0f, 1.0f},
-//
-//	glm::vec3{0.0f, 1.0f, 0.0f},
-//	glm::vec3{1.0f, 1.0f, 0.0f},
-//	glm::vec3{0.0f, 1.0f, 1.0f},
-//	glm::vec3{1.0f, 1.0f, 1.0f},
-//};
-inline static constexpr std::array<Vector3, 8> TileVertexPositions
+inline static constexpr Vector3 TileVertexPositions[] = 
 {
 	Vector3{-0.5f, 0.0f, -0.5f},
 	Vector3{0.5f, 0.0f, -0.5f},
@@ -61,7 +49,7 @@ inline static constexpr std::array<Vector3, 8> TileVertexPositions
 };
 //-----------------------------------------------------------------------------
 // Tile texture coordinates. Order is always 0->1->2->3.
-inline static constexpr std::array<Vector2, 4> TileVertexUVs
+inline static constexpr Vector2 TileVertexUVs[] =
 {
 	Vector2{0.0f, 0.0f},
 	Vector2{1.0f, 0.0f},
@@ -92,7 +80,7 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 		for (auto x = m_position.x; x < m_position.x + ChunkSize; ++x)
 		{
 			TileInfo* tile = m_world.GetTile({ x, y });
-			Vector3 offset{ x, 0, y };
+			Vector3 offset{ (float)x, 0.0f, (float)y };
 
 			auto createVerticesFunc = [&](TileSide side) 
 			{
@@ -104,7 +92,7 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 				else if (side == TileSide::Bottom)
 					tileTexture = tile->textureFloor;
 
-				for (int i = 0; i < vertexIndices.size(); ++i)
+				for (size_t i = 0; i < vertexIndices.size(); ++i)
 				{
 					const auto vertexIndex = vertexIndices[i];
 					const auto position = TileVertexPositions[vertexIndex] + offset;
@@ -116,8 +104,8 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 					};
 					const Vector2 tileUV
 					{ 
-						(float)(tileTexture % TilesetSize) / TilesetSize,
-						(float)(tileTexture / TilesetSize) / TilesetSize 
+						static_cast<float>(tileTexture % TilesetSize) / TilesetSize,
+						static_cast<float>(tileTexture / TilesetSize) / TilesetSize 
 					};
 					auto tileUVFactors = TileVertexUVs[VertexUVIndices[i]];
 
@@ -132,13 +120,13 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 					switch (static_cast<TileVertexId>(vertexIndex))
 					{
 					case TileVertexId::BottomNorthwest:
-					case TileVertexId::TopNorthwest: color = m_world.GetLight(Vector2( x, y )); break;
+					case TileVertexId::TopNorthwest: color = m_world.GetLight(Vector2( (float)x,        (float)y )); break;
 					case TileVertexId::BottomNortheast:
-					case TileVertexId::TopNortheast: color = m_world.GetLight(Vector2(x + 1, y )); break;
+					case TileVertexId::TopNortheast: color = m_world.GetLight(Vector2( (float)x + 1.0f, (float)y )); break;
 					case TileVertexId::BottomSouthwest:
-					case TileVertexId::TopSouthwest: color = m_world.GetLight(Vector2( x, y + 1 )); break;
+					case TileVertexId::TopSouthwest: color = m_world.GetLight(Vector2( (float)x,        (float)y + 1.0f)); break;
 					case TileVertexId::BottomSoutheast:
-					case TileVertexId::TopSoutheast: color = m_world.GetLight(Vector2( x + 1, y + 1 )); break;
+					case TileVertexId::TopSoutheast: color = m_world.GetLight(Vector2( (float)x + 1.0f, (float)y + 1.0f)); break;
 					}
 
 					vertexData.emplace_back(position, uv, color);
@@ -177,18 +165,17 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 	}
 
 	// генерация вершин
-	int vertexCount = vertexData.size();
+	size_t vertexCount = vertexData.size();
 
 	m_mesh = { 0 };
-	m_mesh.vertexCount = vertexCount;
-	//mesh.triangleCount = vertexCount/3;
+	m_mesh.vertexCount = static_cast<int>(vertexCount);
 	m_mesh.vertices = (float*)RL_MALLOC(m_mesh.vertexCount * 3 * sizeof(float));
 	m_mesh.texcoords = (float*)RL_MALLOC(m_mesh.vertexCount * 2 * sizeof(float));
 	m_mesh.normals = (float*)RL_MALLOC(m_mesh.vertexCount * 3 * sizeof(float));
 	m_mesh.colors = (unsigned char*)RL_MALLOC(m_mesh.vertexCount * 4 * sizeof(unsigned char));
 	//mesh.indices = (unsigned short*)RL_MALLOC(mesh.triangleCount * 3 * sizeof(unsigned short));
 
-	for (int i = 0; i < vertexCount; i++)
+	for (size_t i = 0; i < vertexCount; i++)
 	{
 		m_mesh.vertices[3 * i + 0] = vertexData[i].position.x;
 		m_mesh.vertices[3 * i + 1] = vertexData[i].position.y;

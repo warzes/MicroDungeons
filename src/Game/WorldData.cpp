@@ -6,9 +6,9 @@ WorldData::WorldData(const char* file)
 	m_size.x = 32;
 	m_size.y = 32;
 
-	for (uint32_t y = 0; y < m_size.y; ++y)
+	for (int y = 0; y < m_size.y; ++y)
 	{
-		for (uint32_t x = 0; x < m_size.x; ++x)
+		for (int x = 0; x < m_size.x; ++x)
 		{
 			TileInfo tileInfo = {};
 
@@ -34,9 +34,9 @@ WorldData::WorldData(const char* file)
 
 	for (int i = 0; i < 100; i++)
 	{
-		float randR = rand() % 255 / 255.0f;
-		float randG = rand() % 255 / 255.0f;
-		float randB = rand() % 255 / 255.0f;
+		float randR = static_cast<float>(rand() % 255) / 255.0f;
+		float randG = static_cast<float>(rand() % 255) / 255.0f;
+		float randB = static_cast<float>(rand() % 255) / 255.0f;
 
 		int x = rand() % m_size.x;
 		int y = rand() % m_size.y;
@@ -49,14 +49,14 @@ TileInfo* WorldData::GetTile(Point2 tilePosition)
 {
 	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
 		return nullptr;
-	return &m_tileInfo[tilePosition.y * m_size.x + tilePosition.x];
+	return &m_tileInfo[static_cast<size_t>(tilePosition.y * m_size.x + tilePosition.x)];
 }
 //-----------------------------------------------------------------------------
 const TileInfo* WorldData::GetTile(Point2 tilePosition) const
 {
 	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
 		return nullptr;
-	return &m_tileInfo[tilePosition.y * m_size.x + tilePosition.x];
+	return &m_tileInfo[static_cast<size_t>(tilePosition.y * m_size.x + tilePosition.x)];
 }
 //-----------------------------------------------------------------------------
 Vector3 WorldData::GetTileLight(Point2 tilePosition)
@@ -79,11 +79,10 @@ void WorldData::PerformRadiosity(Point2 tilePosition, Vector3 lightSource)
 
 	while (!frontier.empty())
 	{
-		auto current = frontier.front();
-		frontier.pop();
-
+		const auto& current = frontier.front();
 		Point2 currentPosition = current.first;
 		Vector3 currentLightLevel = current.second;
+		frontier.pop();
 
 		if (visited.count({ currentPosition.x, currentPosition.y }))
 			continue;

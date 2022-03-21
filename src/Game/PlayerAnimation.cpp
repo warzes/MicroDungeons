@@ -24,14 +24,14 @@ void PlayerAnimation::Draw2D()
 //-----------------------------------------------------------------------------
 void PlayerAnimation::Update(float deltaTime)
 {
-	m_swordOffsetPosition = { GetScreenWidth() - 800.0f, GetScreenHeight() - 430.0f };
+	m_swordOffsetPosition = { static_cast<float>(GetScreenWidth() - 800), static_cast<float>(GetScreenHeight() - 430) };
 	m_swordPosition.y = 50.0f + m_swordOffsetPosition.x;
 	m_swordPosition.x = 340.0f + m_swordOffsetPosition.y;
 
 	if (m_attacking)
 	{
 		m_frameRec.y = 400.0f;
-		m_frameRec.x = 400.0f * m_currentFrame;
+		m_frameRec.x = 400.0f * static_cast<float>(m_currentFrame);
 		m_swordPosition.x = 240.0f + m_swordOffsetPosition.x;
 		m_swordPosition.y = 145.0f + m_swordOffsetPosition.y;
 		m_attackCounter += m_animationAttackSpeed*deltaTime;

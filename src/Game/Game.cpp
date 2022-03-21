@@ -66,7 +66,7 @@ void Game::Update()
 	// Attack logic
 	if (m_playerAnimation.IsEndAnimationAttack())
 	{
-		const Vector2 rayMousePos = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+		const Vector2 rayMousePos = { static_cast<float>(GetScreenWidth() / 2), static_cast<float>(GetScreenHeight() / 2) };
 		//ray = GetMouseRay(GetMousePosition(), m_playerCamera.GetCamera());
 		const Ray ray = GetMouseRay(rayMousePos, m_playerCamera.GetCamera());
 		m_enemyManager.PlayerAttack(m_playerCamera.GetCamera().position, ray);

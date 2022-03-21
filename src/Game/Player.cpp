@@ -84,7 +84,7 @@ void PlayerCamera::DisableCursor()
 {
 	m_cursorEnabled = false;
 	::DisableCursor();
-	SetMousePosition(GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f);
+	SetMousePosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
 }
 //-----------------------------------------------------------------------------
 BoundingBox PlayerCamera::GetBoundingBox() const

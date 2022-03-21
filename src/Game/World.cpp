@@ -142,7 +142,7 @@ Vector4 World::GetLight(Vector2 position)
 	const auto southwest = (light_west + light_southwest + light_south + lightCurrent) / 4.0f;
 	const auto southeast = (light_south + light_southeast + light_east + lightCurrent) / 4.0f;
 
-	const Vector2 interpolationCoefficient = position - Vector2(x, y);
+	const Vector2 interpolationCoefficient = position - Vector2((float)x, (float)y);
 
 	const auto north_interpolated = Mix(northwest, northeast, interpolationCoefficient.x);
 	const auto south_interpolated = Mix(southwest, southeast, interpolationCoefficient.x);
@@ -166,7 +166,7 @@ bool World::TestCollision(const BoundingBox& bbox) const
 			//for (int y = (int)(pB.min.y - 1); y < (int)(pB.max.y + 1); y++) // hight
 			{
 
-				if (bbox.min.x < 0 || bbox.min.y < 0 || bbox.min.z < 0 || bbox.max.x > Size().x || bbox.max.z > Size().y) return true;
+				if (bbox.min.x < 0 || bbox.min.y < 0 || bbox.min.z < 0 || bbox.max.x > (float)Size().x || bbox.max.z >(float)Size().y) return true;
 				auto tileInfo = GetTile({ x, z });
 				if (!tileInfo || tileInfo->type != TileType::Wall) continue;
 
