@@ -168,12 +168,35 @@ bool World::TestCollision(const BoundingBox& bbox) const
 
 				if (bbox.min.x < 0 || bbox.min.y < 0 || bbox.min.z < 0 || bbox.max.x > (float)Size().x || bbox.max.z >(float)Size().y) return true;
 				auto tileInfo = GetTile({ x, z });
-				if (!tileInfo || tileInfo->type != TileType::Wall) continue;
+				if (!tileInfo) continue;
 
-				BoundingBox blockB;
-				blockB.min = { (float)x - 0.5f, 0.0f, (float)z - 0.5f };
-				blockB.max = { (float)x + 0.5f, 1.0f, (float)z + 0.5f };
-				if (CheckCollisionBoxes(bbox, blockB)) return true;
+				BoundingBox bBox;
+
+				if (tileInfo->type == TileType::Wall)
+				{
+					bBox.min = { (float)x - 0.5f, 0.0f, (float)z - 0.5f };
+					bBox.max = { (float)x + 0.5f, 1.0f, (float)z + 0.5f };
+					if (CheckCollisionBoxes(bbox, bBox)) return true;
+				}
+				else if (tileInfo->type == TileType::Air)
+				{
+					// floor
+					bBox.min = { (float)x - 0.5f, -0.01f, (float)z - 0.5f };
+					bBox.max = { (float)x + 0.5f, 0.0f, (float)z + 0.5f };
+					if (CheckCollisionBoxes(bbox, bBox)) return true;
+
+					// ceiling
+					bBox.min = { (float)x - 0.5f, 1.0f, (float)z - 0.5f };
+					bBox.max = { (float)x + 0.5f, 1.01f, (float)z + 0.5f };
+					if (CheckCollisionBoxes(bbox, bBox)) return true;
+				}
+				else if (tileInfo->type == TileType::Temp)
+				{
+					// floor
+					bBox.min = { (float)x - 0.5f, -0.01f, (float)z - 0.5f };
+					bBox.max = { (float)x + 0.5f, 0.0f, (float)z + 0.5f };
+					if (CheckCollisionBoxes(bbox, bBox)) return true;
+				}
 			}
 		}
 	}

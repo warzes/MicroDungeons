@@ -205,8 +205,7 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 //-----------------------------------------------------------------------------
 void WorldChunk::Draw()
 {
-	//rlDisableBackfaceCulling();
-	//DrawModel(model, { (float)position_m.x, 0.0001, (float)position_m.y }, 1.0f, WHITE);
+	rlDisableBackfaceCulling();
 	DrawModel(m_model, { 0.0f, 0.0f, 0.0f }, 1.0f, WHITE); // позиции уже вшиты в чанки
 	//rlEnableBackfaceCulling();
 }
