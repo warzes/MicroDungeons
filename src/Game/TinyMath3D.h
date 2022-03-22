@@ -208,7 +208,8 @@ namespace Internal {
 
 	inline Matrix3D PitchMatrix3D(const float c, const float s)
 	{
-		return Matrix3D(1.0f, 0.0f, 0.0f, 0.0f,
+		return Matrix3D(
+			1.0f, 0.0f, 0.0f, 0.0f,
 			0.0f, c, -s, 0.0f,
 			0.0f, s, c, 0.0f,
 			0.0f, 0.0f, 0.0f, 1.0f);

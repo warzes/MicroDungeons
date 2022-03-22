@@ -13,9 +13,10 @@ public:
 
 	void Init(const Vector3& startPosition, int rotationCamX, int rotationCamY);
 
-	void Update(const World& world, const EnemyManager& enemyManager, float deltaTime);
+	void Update(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision, float deltaTime);
 
-	bool TestCollision(const World& world, const EnemyManager& enemyManager);
+	bool TestCollision(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision);
+	bool TestCollision(ModelCollisionTest* modelCollision);
 
 	Camera GetCamera() const { return m_camera; }
 	BoundingBox GetBoundingBox() const;
@@ -32,6 +33,7 @@ private:
 	Vector3 m_direction;
 	Vector3 m_velocity = { 0, 0, 0 };
 	BoundingBox m_collisionBox;
+	CollisionModel3D m_colModel;
 	float m_speed = 0.125f / 6;
 	bool m_cursorEnabled = false;
 	bool m_canJump = true;

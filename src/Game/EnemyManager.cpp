@@ -25,7 +25,7 @@ void EnemyManager::Update(const PlayerCamera& playerCamera, const World& world, 
 {
 	for (int i = 0; i < ENEMIES; i++)
 	{
-		m_enemies[i].Update(*this, playerCamera, world, deltaTime);
+		//m_enemies[i].Update(*this, playerCamera, world, deltaTime);
 	}
 }
 //-----------------------------------------------------------------------------

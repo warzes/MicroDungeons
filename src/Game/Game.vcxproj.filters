@@ -91,9 +91,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Game\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Other.h">
-      <Filter>Other</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>Game\Enemy</Filter>
     </ClInclude>
@@ -127,6 +124,9 @@
     <ClInclude Include="SphereCollisionTest.h">
       <Filter>Core\TinyCollision</Filter>
     </ClInclude>
+    <ClInclude Include="Other.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -140,9 +140,6 @@
     </Filter>
     <Filter Include="Game\Enemy">
       <UniqueIdentifier>{06ad6fb8-0097-42bf-beba-62f1c63f0f68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Other">
-      <UniqueIdentifier>{922e1ff6-78e1-498c-aa1f-2f04edbe3e0e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{e5728c7f-5509-448c-a994-aa74b80b68e4}</UniqueIdentifier>

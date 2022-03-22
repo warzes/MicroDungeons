@@ -32,9 +32,57 @@ void PlayerCamera::Init(const Vector3& startPosition, int rotationCamX, int rota
 	this->DisableCursor();
 	m_cameraAngle.x = (float)rotationCamX * DEG2RAD;
 	m_cameraAngle.y = (float)rotationCamY * DEG2RAD;
+
+	Model boxModel = LoadModelFromMesh(GenMeshCylinder(0.4f, 0.56f, 64)); // todo: optimaze
+	for (int i = 0; i < boxModel.meshCount; i++)
+	{
+		const auto& mesh = boxModel.meshes[i];
+		std::vector<Vector3> vertices;
+		vertices.reserve(mesh.vertexCount);
+		for (int a = 0; a < mesh.vertexCount * 3; a += 3)
+		{
+			vertices.push_back({ mesh.vertices[a + 0], mesh.vertices[a + 1], mesh.vertices[a + 2] });
+			//std::cout << vertices[i].x << ":" << vertices[i].y << ":" << vertices[i].z << std::endl;
+		}
+		if (mesh.triangleCount > 0 && mesh.indices)
+		{
+			size_t numIndex = mesh.triangleCount * 3;
+			for (int a = 0; a < numIndex; a += 3)
+			{
+				int index1 = mesh.indices[a + 0];
+				int index2 = mesh.indices[a + 1];
+				int index3 = mesh.indices[a + 2];
+
+				const Vector3& point1 = vertices[index1];
+				const Vector3& point2 = vertices[index2];
+				const Vector3& point3 = vertices[index3];
+				m_colModel.addTriangle(
+					point1.x, point1.y, point1.z,
+					point2.x, point2.y, point2.z,
+					point3.x, point3.y, point3.z);
+			}
+		}
+		else
+		{
+			for (int a = 0; a < vertices.size(); a += 3)
+			{
+				const Vector3& point1 = vertices[a + 0];
+				const Vector3& point2 = vertices[a + 1];
+				const Vector3& point3 = vertices[a + 2];
+				m_colModel.addTriangle(
+					point1.x, point1.y, point1.z,
+					point2.x, point2.y, point2.z,
+					point3.x, point3.y, point3.z);
+			}
+		}
+	}
+	m_colModel.finalize();
+
+
+	UnloadModel(boxModel);
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::Update(const World& world, const EnemyManager& enemyManager, float deltaTime)
+void PlayerCamera::Update(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision, float deltaTime)
 {
 	//Gravity
 	m_velocity.y -= 0.012f * (deltaTime * 60.0f);
@@ -43,12 +91,12 @@ void PlayerCamera::Update(const World& world, const EnemyManager& enemyManager, 
 	Vector3 velXdt = Vector3Scale(m_velocity, deltaTime * 60.0f);
 
 	m_position.x += velXdt.x;
-	if (TestCollision(world, enemyManager)) m_position.x -= velXdt.x;
+	if (TestCollision(world, enemyManager, modelCollision)) m_position.x -= velXdt.x;
 	m_position.z += velXdt.z;
-	if (TestCollision(world, enemyManager)) m_position.z -= velXdt.z;
+	if (TestCollision(world, enemyManager, modelCollision)) m_position.z -= velXdt.z;
 
 	m_position.y += velXdt.y;
-	if (TestCollision(world, enemyManager) || m_position.y < 0.0f)
+	if (TestCollision(world, enemyManager, modelCollision) || m_position.y < 0.0f)
 	{
 		m_position.y -= velXdt.y;
 		if (m_velocity.y <= 0.0f) m_canJump = true;
@@ -66,12 +114,25 @@ void PlayerCamera::Update(const World& world, const EnemyManager& enemyManager, 
 	checkInputs();
 }
 //-----------------------------------------------------------------------------
-bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyManager)
+bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision)
 {
 	if (world.TestCollision(GetBoundingBox())) return true;
 	if (enemyManager.TestCollision(m_position, GetBoundingBox())) return true;
 
+	Matrix matScale = MatrixScale(1.0f, 1.0f, 1.0f);
+	Matrix matRotation = MatrixRotate({ 0.0f, 1.0f, 0.0f }, 0.0f * DEG2RAD);
+	Matrix matTranslation = MatrixTranslate(m_position.x, m_position.y+0.3, m_position.z);
+	Matrix matTransform = MatrixMultiply(MatrixMultiply(matScale, matRotation), matTranslation);
+	Matrix matWorld = MatrixTranspose(matTransform);
+	m_colModel.setTransform(&matWorld.m0);
+	if (TestCollision(modelCollision)) return true;
+
 	return false;
+}
+//-----------------------------------------------------------------------------
+bool PlayerCamera::TestCollision(ModelCollisionTest* modelCollision)
+{
+	return m_colModel.modelCollision(modelCollision);
 }
 //-----------------------------------------------------------------------------
 void PlayerCamera::EnableCursor()
