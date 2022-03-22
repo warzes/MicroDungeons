@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
+#include "ResourceManager.h"
 //-----------------------------------------------------------------------------
 #if defined(_MSC_VER)
 #	pragma comment( lib, "winmm.lib" )
@@ -28,13 +29,17 @@ void ImplMain()
 	SetWindowState(FLAG_WINDOW_RESIZABLE);
 	//SetExitKey(0);
 
-	Game game;
-	while (!WindowShouldClose())
 	{
-		game.Frame();
-		game.Update();
+		ResourceManager resourceManager;
+		Game game;
+		while (!WindowShouldClose())
+		{
+			game.Frame();
+			game.Update();
+		}
+		game.Close();
 	}
-	game.Close();
+
 	rCloseWindow();
 }
 //-----------------------------------------------------------------------------

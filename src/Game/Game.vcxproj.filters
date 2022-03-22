@@ -30,6 +30,39 @@
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionModel3D.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyMath3D.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="mytritri.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCollisionTest.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelCollisionTest.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCollisionTest.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollisionTest.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="box_bld.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="tritri.cpp">
+      <Filter>Core\TinyCollision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -67,6 +100,33 @@
     <ClInclude Include="GameState.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionModel3D.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyMath3D.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="mytritri.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCollisionTest.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelCollisionTest.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCollisionTest.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollisionTest.h">
+      <Filter>Core\TinyCollision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -83,6 +143,12 @@
     </Filter>
     <Filter Include="Other">
       <UniqueIdentifier>{922e1ff6-78e1-498c-aa1f-2f04edbe3e0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{e5728c7f-5509-448c-a994-aa74b80b68e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\TinyCollision">
+      <UniqueIdentifier>{f5f00c47-1239-4c68-af8c-80ef32a80174}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

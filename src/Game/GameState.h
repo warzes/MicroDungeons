@@ -6,5 +6,5 @@ public:
 	virtual ~GameState();
 
 private:
-	std::queue<GameState> m_childs;
+	std::queue<GameState*> m_childs;
 };

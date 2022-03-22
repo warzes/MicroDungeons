@@ -4,6 +4,7 @@
 #include "PlayerAnimation.h"
 #include "World.h"
 #include "EnemyManager.h"
+#include "GameState.h"
 
 class Game
 {

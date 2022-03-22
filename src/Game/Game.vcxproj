@@ -177,34 +177,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseCollisionTest.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="box_bld.cpp" />
+    <ClCompile Include="CollisionModel3D.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelCollisionTest.cpp" />
+    <ClCompile Include="mytritri.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="PlayerRPG.cpp" />
+    <ClCompile Include="RayCollisionTest.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SphereCollisionTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TinyMath3D.cpp" />
+    <ClCompile Include="tritri.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WorldChunk.cpp" />
     <ClCompile Include="WorldData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseCollisionTest.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="CollisionModel3D.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="ModelCollisionTest.h" />
+    <ClInclude Include="mytritri.h" />
     <ClInclude Include="Other.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAnimation.h" />
     <ClInclude Include="PlayerRPG.h" />
+    <ClInclude Include="RayCollisionTest.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SphereCollisionTest.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TinyMath3D.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldChunk.h" />
     <ClInclude Include="WorldData.h" />

@@ -13,6 +13,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{8E195673-B65B-4A86-ACD8-F068C2A10C57}"
 	ProjectSection(SolutionItems) = preProject
 		link.md = link.md
+		link2.md = link2.md
 	EndProjectSection
 EndProject
 Global
