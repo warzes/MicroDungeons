@@ -121,15 +121,18 @@ bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyMa
 
 	Matrix matScale = MatrixScale(1.0f, 1.0f, 1.0f);
 	Matrix matRotation = MatrixRotate({ 0.0f, 1.0f, 0.0f }, 0.0f * DEG2RAD);
-	Matrix matTranslation = MatrixTranslate(m_position.x, m_position.y+0.3, m_position.z);
+	Matrix matTranslation = MatrixTranslate(m_position.x, m_position.y, m_position.z);
 	Matrix matTransform = MatrixMultiply(MatrixMultiply(matScale, matRotation), matTranslation);
 	Matrix matWorld = MatrixTranspose(matTransform);
 	m_colModel.setTransform(&matWorld.m0);
 	if (TestCollision(modelCollision))
 	{
 		auto t = modelCollision->modelTriangle();
-		std::cout << t << std::endl;
-		todo
+		std::cout << 
+			t[0] << ":" << t[1] << ":" << t[2] << "  " <<
+			t[3] << ":" << t[4] << ":" << t[5] << "  " <<
+			t[6] << ":" << t[7] << ":" << t[8] << "  " <<
+			std::endl;
 		return true;
 	}
 

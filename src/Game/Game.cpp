@@ -13,6 +13,7 @@ CollisionModel3D colModel1, colModel2;
 float offset = 2.0f;
 bool ret = false;
 bool stopAnim = true;
+float maxY = 0.0f;
 
 static const Vector2 posModel = { 3.0f, 3.0f };
 //-----------------------------------------------------------------------------
@@ -131,8 +132,13 @@ Game::Game()
 					point1.x, point1.y, point1.z,
 					point2.x, point2.y, point2.z,
 					point3.x, point3.y, point3.z);
+
+				if (maxY < point1.y) maxY = point1.y;
+				if (maxY < point2.y) maxY = point2.y;
+				if (maxY < point3.y) maxY = point3.y;
 			}
 
+			std::cout << "max=" << maxY << " - " << maxY * 0.3f << std::endl;
 
 
 			/*for (int j = 0; j < mesh.vertexCount; j += 9)
@@ -211,7 +217,7 @@ void Game::Frame()
 		m_world.Frame();
 
 		DrawModel(boxModel1, { posModel.x, 0.2f, posModel.y }, 1.0f, GOLD);
-		DrawModel(boxModel2, { posModel.x+ offset, 1.0f, posModel.y }, 0.3f, DARKGRAY);
+		DrawModel(boxModel2, { posModel.x+ offset, 1.0f, posModel.y }, 0.3f, WHITE);
 
 		m_enemyManager.Draw();
 	}
