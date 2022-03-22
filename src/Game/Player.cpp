@@ -125,7 +125,15 @@ bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyMa
 	Matrix matTransform = MatrixMultiply(MatrixMultiply(matScale, matRotation), matTranslation);
 	Matrix matWorld = MatrixTranspose(matTransform);
 	m_colModel.setTransform(&matWorld.m0);
-	if (TestCollision(modelCollision)) return true;
+	if (TestCollision(modelCollision))
+	{
+		auto t = modelCollision->modelTriangle();
+		std::cout << t << std::endl;
+		todo
+		return true;
+	}
+
+	
 
 	return false;
 }

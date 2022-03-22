@@ -24,8 +24,10 @@ WorldData::WorldData(const char* file)
 				if (t < 4) tileInfo.type = TileType::Wall;
 			}
 
-			if (x == 5 && y == 5)
-				tileInfo.type = TileType::Temp;
+			if (x == 8 && y == 8) tileInfo.type = TileType::Temp;
+			if (x == 8 && y == 9) tileInfo.type = TileType::Temp;
+			if (x == 9 && y == 8) tileInfo.type = TileType::Temp;
+			if (x == 9 && y == 9) tileInfo.type = TileType::Temp;
 
 			tileInfo.textureCeiling = 2;
 			tileInfo.textureFloor = 0;
