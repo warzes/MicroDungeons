@@ -63,6 +63,12 @@
     <ClCompile Include="tritri.cpp">
       <Filter>Core\TinyCollision</Filter>
     </ClCompile>
+    <ClCompile Include="GameLogic.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -94,9 +100,6 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>Game\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -127,6 +130,15 @@
     <ClInclude Include="Other.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="GameLogic.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCollision.h">
+      <Filter>Game\GameState\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -146,6 +158,12 @@
     </Filter>
     <Filter Include="Core\TinyCollision">
       <UniqueIdentifier>{f5f00c47-1239-4c68-af8c-80ef32a80174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameState">
+      <UniqueIdentifier>{35b1da0a-e93e-4469-92a1-7c98b1120d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameState\Test">
+      <UniqueIdentifier>{cae0a2a2-5b55-482c-a42b-f8d6379824f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

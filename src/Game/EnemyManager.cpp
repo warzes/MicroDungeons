@@ -17,7 +17,7 @@ void EnemyManager::Draw()
 {
 	for (int i = 0; i < ENEMIES; i++)
 	{
-		m_enemies[i].Draw();
+		//m_enemies[i].Draw();
 	}
 }
 //-----------------------------------------------------------------------------

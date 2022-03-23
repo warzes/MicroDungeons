@@ -135,9 +135,7 @@ bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyMa
 			std::endl;
 		return true;
 	}
-
 	
-
 	return false;
 }
 //-----------------------------------------------------------------------------

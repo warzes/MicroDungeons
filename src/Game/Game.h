@@ -1,10 +1,7 @@
 #pragma once
 
-#include "Player.h"
-#include "PlayerAnimation.h"
-#include "World.h"
-#include "EnemyManager.h"
 #include "GameState.h"
+#include "GameLogic.h"
 
 class Game
 {
@@ -17,9 +14,6 @@ public:
 	void Close();
 
 private:
-	PlayerCamera m_playerCamera;
-	PlayerAnimation m_playerAnimation;
-	PlayerLogic m_playerLogic;
-	World m_world;
-	EnemyManager m_enemyManager;
+	//GameState m_rootState; // TODO:
+	GameLogic m_logic;
 };

@@ -184,6 +184,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelCollisionTest.cpp" />
     <ClCompile Include="mytritri.cpp" />
@@ -212,6 +214,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ModelCollisionTest.h" />
@@ -224,6 +227,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SphereCollisionTest.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TestCollision.h" />
     <ClInclude Include="TinyMath3D.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WorldChunk.h" />

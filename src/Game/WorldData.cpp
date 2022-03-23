@@ -18,16 +18,16 @@ WorldData::WorldData(const char* file)
 				tileInfo.type = TileType::Wall;
 			else if (y == 0 || y == m_size.y - 1)
 				tileInfo.type = TileType::Wall;
-			else
-			{
-				int t = rand() % 100;
-				if (t < 4) tileInfo.type = TileType::Wall;
-			}
+			//else
+			//{
+			//	int t = rand() % 100;
+			//	if (t < 4) tileInfo.type = TileType::Wall;
+			//}
 
-			if (x == 8 && y == 8) tileInfo.type = TileType::Temp;
-			if (x == 8 && y == 9) tileInfo.type = TileType::Temp;
-			if (x == 9 && y == 8) tileInfo.type = TileType::Temp;
-			if (x == 9 && y == 9) tileInfo.type = TileType::Temp;
+			//if (x == 8 && y == 8) tileInfo.type = TileType::Temp;
+			//if (x == 8 && y == 9) tileInfo.type = TileType::Temp;
+			//if (x == 9 && y == 8) tileInfo.type = TileType::Temp;
+			//if (x == 9 && y == 9) tileInfo.type = TileType::Temp;
 
 			tileInfo.textureCeiling = 2;
 			tileInfo.textureFloor = 0;
