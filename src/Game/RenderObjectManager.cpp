@@ -28,7 +28,7 @@ void RenderObjectManager::AddRenderObject(RenderObject* object)
 		m_renderObjects.push_back(object);
 }
 //-----------------------------------------------------------------------------
-void RenderObjectManager::Collisions(RenderObject* object, Vector3& newPos)
+void RenderObjectManager::Collisions(RenderObject* object, Vector3& newPos, Vector3& direction)
 {
 	const BoundingBox& currentBoundingBox = object->GetBoundingBox();
 	for (int i = 0; i < m_renderObjects.size(); i++)

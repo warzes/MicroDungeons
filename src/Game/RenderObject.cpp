@@ -80,7 +80,9 @@ void RenderObject::Update()
 	newPos.y = m_position.y + 0.72f * GetFrameTime() * m_direction.y;
 	newPos.z = m_position.z + 1.5f * GetFrameTime() * m_direction.z;
 
-	RenderObjectManager::Get()->Collisions(this, newPos);
+	RenderObjectManager::Get()->Collisions(this, newPos, m_direction);
+
+	// не так - коллизии должны не задавать позицию, а модифицировать m_direction.
 
 	m_position = newPos;
 

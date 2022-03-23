@@ -12,7 +12,7 @@ public:
 
 	void AddRenderObject(RenderObject* object);
 
-	void Collisions(RenderObject* object, Vector3& newPos);
+	void Collisions(RenderObject* object, Vector3& newPos, Vector3& direction);
 
 	void Draw();
 	void Update();
