@@ -194,6 +194,7 @@
     <ClCompile Include="PlayerRPG.cpp" />
     <ClCompile Include="RayCollisionTest.cpp" />
     <ClCompile Include="RenderObject.cpp" />
+    <ClCompile Include="RenderObjectManager.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SphereCollisionTest.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -226,6 +227,7 @@
     <ClInclude Include="PlayerRPG.h" />
     <ClInclude Include="RayCollisionTest.h" />
     <ClInclude Include="RenderObject.h" />
+    <ClInclude Include="RenderObjectManager.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SphereCollisionTest.h" />
     <ClInclude Include="stdafx.h" />

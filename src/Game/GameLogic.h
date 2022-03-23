@@ -5,6 +5,7 @@
 #include "PlayerAnimation.h"
 #include "World.h"
 #include "EnemyManager.h"
+#include "RenderObjectManager.h"
 
 class GameLogic final : public GameState
 {
@@ -22,4 +23,5 @@ private:
 	PlayerLogic m_playerLogic;
 	World m_world;
 	EnemyManager m_enemyManager;
+	RenderObjectManager m_renderObjectManager;
 };
