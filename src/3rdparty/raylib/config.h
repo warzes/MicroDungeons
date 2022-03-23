@@ -199,9 +199,9 @@
 //------------------------------------------------------------------------------------
 // Selected desired model fileformats to be supported for loading
 #define SUPPORT_FILEFORMAT_OBJ      1
-//#define SUPPORT_FILEFORMAT_MTL      1
+#define SUPPORT_FILEFORMAT_MTL      1
 //#define SUPPORT_FILEFORMAT_IQM      1
-//#define SUPPORT_FILEFORMAT_GLTF     1
+#define SUPPORT_FILEFORMAT_GLTF     1
 //#define SUPPORT_FILEFORMAT_VOX      1
 // Support procedural mesh generation functions, uses external par_shapes.h library
 // NOTE: Some generated meshes DO NOT include generated texture coordinates
