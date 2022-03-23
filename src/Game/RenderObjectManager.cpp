@@ -42,7 +42,8 @@ void RenderObjectManager::Collisions(RenderObject* object, Vector3& newPos)
 		float outY;
 		if (m_renderObjects[i]->CalculateY(object->m_position, outY))
 		{
-			newPos.y = outY;
+			if (outY > newPos.y)
+				newPos.y = outY;
 		}
 	}
 }

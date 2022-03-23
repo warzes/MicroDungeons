@@ -1,11 +1,17 @@
 #pragma once
 
+enum class ObjectType
+{
+	Static,
+	Dynamic
+};
+
 class RenderObject
 {
 	friend class RenderObjectManager;
 public:
-	void Init(const Model& model);
-	void Init(const std::string& modelFileName, const std::string& diffuseTextureFileName);
+	void Init(ObjectType type, const Model& model);
+	void Init(ObjectType type, const std::string& modelFileName, const std::string& diffuseTextureFileName);
 
 	void SetScale(float scale);
 
@@ -21,6 +27,7 @@ public:
 	const BoundingBox& GetBoundingBox() const { return m_bounds; }
 
 private:
+	ObjectType m_type;
 	Model m_model;
 	Texture2D m_diffuseTexture;
 	BoundingBox m_bounds;
@@ -29,5 +36,8 @@ private:
 	Vector3 m_position = {};
 	Vector3 m_direction = {};
 
+	Vector3 m_size = {};
 	float m_scale = 1.0f;
+
+	bool m_isMove = true;
 };
