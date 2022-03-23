@@ -47,3 +47,19 @@ void RenderObjectManager::Collisions(RenderObject* object, Vector3& newPos)
 	}
 }
 //-----------------------------------------------------------------------------
+void RenderObjectManager::Draw()
+{
+	for (int i = 0; i < m_renderObjects.size(); i++)
+	{
+		m_renderObjects[i]->Draw();
+	}
+}
+//-----------------------------------------------------------------------------
+void RenderObjectManager::Update()
+{
+	for (int i = 0; i < m_renderObjects.size(); i++)
+	{
+		m_renderObjects[i]->Update();
+	}
+}
+//-----------------------------------------------------------------------------

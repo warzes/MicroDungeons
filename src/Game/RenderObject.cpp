@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "RenderObject.h"
 #include "RenderObjectManager.h"
-
-moc - collision
+//
+//moc - collision
 
 //-----------------------------------------------------------------------------
 const Vector3 NegativeUnitY = { 0.0f, -1.0f, 0.0f };

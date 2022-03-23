@@ -14,6 +14,9 @@ public:
 
 	void Collisions(RenderObject* object, Vector3& newPos);
 
+	void Draw();
+	void Update();
+
 private:
 	std::vector<RenderObject*> m_renderObjects;
 };
