@@ -2,6 +2,13 @@
 
 #include "RenderObject.h"
 
+https://github.com/irlanrobson/bounce
+
+draw ray in debug
+
+
+https://www.youtube.com/watch?v=u0_-JDVVUlY
+
 RenderObject m_object1;
 RenderObject m_object2;
 RenderObject m_object3;
