@@ -1,3 +1,7 @@
+https://www.youtube.com/watch?v=DBjd7NHMgOE - tile open world idea
+
+
+
 https://www.youtube.com/c/TheOldSchoolCoder/videos
 https://github.com/atxi/Polymer
 https://www.youtube.com/watch?v=a87tB__3KEs
