@@ -51,17 +51,19 @@ void RenderObject::Move(const Vector3& direction)
 //-----------------------------------------------------------------------------
 void RenderObject::Update()
 {
-	if (!m_isMove) return;
+	//if (!m_isMove) return;
 
 	m_isMove = false;
 
 	m_bounds = GetMeshBoundingBox(m_model.meshes[0]);
 	m_bounds.min = Vector3Scale(m_bounds.min, m_scale);
 	m_bounds.max = Vector3Scale(m_bounds.max, m_scale);
+	m_size.x = fabsf(m_bounds.max.x - m_bounds.min.x);
+	m_size.y = fabsf(m_bounds.max.y - m_bounds.min.y);
+	m_size.z = fabsf(m_bounds.max.z - m_bounds.min.z);
+
 	m_bounds.min = Vector3Add(m_bounds.min, m_position);
 	m_bounds.max = Vector3Add(m_bounds.max, m_position);
-
-	m_size = Vector3Subtract(m_bounds.max, m_bounds.min);
 
 	Matrix matScale = MatrixScale(m_scale, m_scale, m_scale);
 	Matrix matRotation = MatrixRotate({ 0.0f, 1.0f, 0.0f }, 0.0f * DEG2RAD);
@@ -69,15 +71,15 @@ void RenderObject::Update()
 	m_matTransform = MatrixMultiply(MatrixMultiply(matScale, matRotation), matTranslation);
 
 	// Gravitation
-	if (m_type == ObjectType::Dynamic)
-		m_direction.y -= 1.0f;
+	//if (m_type == ObjectType::Dynamic)
+	//	m_direction.y -= 1.0f;
 
 	// Move and collisions
 	if (m_direction.x == 0.0f && m_direction.y == 0.0f && m_direction.z == 0.0f) return;
 
 	Vector3 newPos;
 	newPos.x = m_position.x + 1.5f * GetFrameTime() * m_direction.x;
-	newPos.y = m_position.y + 0.72f * GetFrameTime() * m_direction.y;
+	newPos.y = m_position.y + 0.92f * GetFrameTime() * m_direction.y;
 	newPos.z = m_position.z + 1.5f * GetFrameTime() * m_direction.z;
 
 	RenderObjectManager::Get()->Collisions(this, newPos, m_direction);
@@ -93,13 +95,22 @@ void RenderObject::Draw()
 {
 	DrawModel(m_model, m_position, m_scale, WHITE);
 	DrawBoundingBox(m_bounds, LIME);
+
+	m_debugRayY.position = Vector3Add(m_position, {0.0, m_size.y, 0.0f});
+	m_debugRayY.direction = m_position;
+	m_debugRayY.direction.y = 0.0f;
+	DrawLine3D(m_debugRayY.position, m_debugRayY.direction, RED);
+
+	m_debugRayZ.position = Vector3Add(m_position, { 0.0, 0.5, 0.0f });
+	m_debugRayZ.direction = Vector3Add(m_debugRayZ.position, { 0.0, 0.0, m_size.z });
+	DrawLine3D(m_debugRayZ.position, m_debugRayZ.direction, BLUE);
 }
 //-----------------------------------------------------------------------------
 bool RenderObject::CalculateY(const Vector3& point, float& outY)
 {
 	Vector3 pos = point;
 	pos.y += m_size.y + m_position.y;
-
+	
 	Ray ray = { 0 };
 	ray.position = pos;
 	ray.direction = NegativeUnitY;
@@ -113,6 +124,11 @@ bool RenderObject::CalculateY(const Vector3& point, float& outY)
 			return true;
 		}
 	}
+	return false;
+}
+//-----------------------------------------------------------------------------
+bool RenderObject::CalculateZ(const Vector3& position, float& outZ)
+{
 	return false;
 }
 //-----------------------------------------------------------------------------

@@ -30,21 +30,27 @@ void RenderObjectManager::AddRenderObject(RenderObject* object)
 //-----------------------------------------------------------------------------
 void RenderObjectManager::Collisions(RenderObject* object, Vector3& newPos, Vector3& direction)
 {
-	const BoundingBox& currentBoundingBox = object->GetBoundingBox();
+	//const BoundingBox& currentBoundingBox = object->GetBoundingBox();
+	
+	newPos.y = 0.0f;
 	for (int i = 0; i < m_renderObjects.size(); i++)
 	{
 		if (m_renderObjects[i] == object) continue;
 
-		const BoundingBox& targetBoundingBox = m_renderObjects[i]->GetBoundingBox();
-
+		//const BoundingBox& targetBoundingBox = m_renderObjects[i]->GetBoundingBox();
 		// TODO: test AABB
-
-		float outY;
-		if (m_renderObjects[i]->CalculateY(object->m_position, outY))
+		float out = 0.0f;
+		if (m_renderObjects[i]->CalculateY(object->m_position, out))
 		{
-			if (outY > newPos.y)
-				newPos.y = outY;
+			if (out > newPos.y)
+				newPos.y = out;
 		}
+		if (m_renderObjects[i]->CalculateZ(object->m_position, out))
+		{
+			if (out > newPos.z)
+				newPos.z = out;
+		}
+
 	}
 }
 //-----------------------------------------------------------------------------

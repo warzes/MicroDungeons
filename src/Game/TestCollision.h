@@ -2,12 +2,9 @@
 
 #include "RenderObject.h"
 
-https://github.com/irlanrobson/bounce
-
-draw ray in debug
-
-
-https://www.youtube.com/watch?v=u0_-JDVVUlY
+//https://github.com/irlanrobson/bounce
+//draw ray in debug
+//https://www.youtube.com/watch?v=u0_-JDVVUlY
 
 RenderObject m_object1;
 RenderObject m_object2;
@@ -27,7 +24,6 @@ void InitTest()
 
 	//m_object3.Init(ObjectType::Static, LoadModelFromMesh(GenMeshCube(1.0f, 1.0f, 1.0f)));
 	m_object3.Init(ObjectType::Static, "../data/models/well.obj", "../data/models/well_diffuse.png");
-
 	m_object3.SetPosition({ 10.0f, 0.0, 16.0f });
 }
 

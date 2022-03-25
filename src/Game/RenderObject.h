@@ -22,6 +22,7 @@ public:
 	void Draw();
 
 	bool CalculateY(const Vector3& position, float& outY);
+	bool CheckZ(const Vector3& position, float& outZ);
 
 	const Vector3& GetPosition() const { return m_position; }
 	const BoundingBox& GetBoundingBox() const { return m_bounds; }
@@ -32,6 +33,8 @@ private:
 	Texture2D m_diffuseTexture;
 	BoundingBox m_bounds;
 	Matrix m_matTransform;
+	Ray m_debugRayY;
+	Ray m_debugRayZ;
 
 	Vector3 m_position = {};
 	Vector3 m_direction = {};
