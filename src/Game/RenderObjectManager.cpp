@@ -45,7 +45,7 @@ void RenderObjectManager::Collisions(RenderObject* object, Vector3& newPos, Vect
 			if (out > newPos.y)
 				newPos.y = out;
 		}
-		if (m_renderObjects[i]->CalculateZ(object->m_position, out))
+		if (m_renderObjects[i]->CheckZ(object->m_position, out))
 		{
 			if (out > newPos.z)
 				newPos.z = out;

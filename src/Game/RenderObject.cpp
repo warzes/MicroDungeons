@@ -127,7 +127,7 @@ bool RenderObject::CalculateY(const Vector3& point, float& outY)
 	return false;
 }
 //-----------------------------------------------------------------------------
-bool RenderObject::CalculateZ(const Vector3& position, float& outZ)
+bool RenderObject::CheckZ(const Vector3& position, float& outZ)
 {
 	return false;
 }

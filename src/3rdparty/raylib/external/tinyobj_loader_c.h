@@ -24,8 +24,6 @@
 #ifndef TINOBJ_LOADER_C_H_
 #define TINOBJ_LOADER_C_H_
 
-#define _CRT_SECURE_NO_WARNINGS
-
 /* @todo { Remove stddef dependency. unsigned int? } ---> RAY: DONE. */
 //#include <stddef.h>
 

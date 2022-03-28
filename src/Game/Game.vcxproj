@@ -180,6 +180,7 @@
     <ClCompile Include="BaseCollisionTest.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="box_bld.cpp" />
+    <ClCompile Include="BSP.cpp" />
     <ClCompile Include="CollisionModel3D.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
@@ -210,8 +211,10 @@
     <ClCompile Include="WorldData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
     <ClInclude Include="BaseCollisionTest.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="BSP.h" />
     <ClInclude Include="CollisionModel3D.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />

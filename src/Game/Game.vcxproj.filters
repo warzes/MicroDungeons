@@ -75,6 +75,9 @@
     <ClCompile Include="RenderObjectManager.cpp">
       <Filter>Game\GameState\Test</Filter>
     </ClCompile>
+    <ClCompile Include="BSP.cpp">
+      <Filter>Game\GameState\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -149,6 +152,12 @@
       <Filter>Game\GameState\Test</Filter>
     </ClInclude>
     <ClInclude Include="RenderObjectManager.h">
+      <Filter>Game\GameState\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="BSP.h">
+      <Filter>Game\GameState\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
       <Filter>Game\GameState\Test</Filter>
     </ClInclude>
   </ItemGroup>
