@@ -42,11 +42,40 @@ void ImplMain()
 
 	rCloseWindow();
 }
+
+struct one
+{
+	uint8_t upheight;
+	uint8_t downheight;
+};
+
+struct tile
+{
+	one o[100][100];
+};
+
+struct HeightMap
+{
+	tile t[100][100];
+};
+
+constexpr auto SizeMap = sizeof(HeightMap);
+
+
 //-----------------------------------------------------------------------------
 int main(
 	[[maybe_unused]] int   argc,
 	[[maybe_unused]] char* argv[])
 {
+	HeightMap *mm = new HeightMap;
+
+	std::cout << SizeMap / 1024 / 1024 << " mb";
+
+
+
+
+
+
 	ImplMain();
 	return 0;
 }

@@ -3,21 +3,21 @@
 #include "RenderObject.h"
 #include "BSP.h"
 
-//https://github.com/irlanrobson/bounce
-//draw ray in debug
-//https://www.youtube.com/watch?v=u0_-JDVVUlY
-
-
-
-new temp test
-
-https ://www.youtube.com/watch?v=vZ9jdy_EZDA
-https://www.geometrictools.com
-softpixelengine
-
-http ://www.peroxide.dk/papers/collision/collision.pdf
-
-https://github.com/Pierre-Terdiman/PEEL_PhysX_Edition
+////https://github.com/irlanrobson/bounce
+////draw ray in debug
+////https://www.youtube.com/watch?v=u0_-JDVVUlY
+//
+//
+//
+//new temp test
+//
+//https ://www.youtube.com/watch?v=vZ9jdy_EZDA
+//https://www.geometrictools.com
+//softpixelengine
+//
+//http ://www.peroxide.dk/papers/collision/collision.pdf
+//
+//https://github.com/Pierre-Terdiman/PEEL_PhysX_Edition
 
 
 

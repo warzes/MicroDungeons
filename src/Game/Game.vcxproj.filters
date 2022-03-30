@@ -186,5 +186,8 @@
     <Filter Include="Game\GameState\Test">
       <UniqueIdentifier>{cae0a2a2-5b55-482c-a42b-f8d6379824f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{3e76c316-6813-4254-b759-96a7d9c68cef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{8E195673-B65
 	ProjectSection(SolutionItems) = preProject
 		link.md = link.md
 		link2.md = link2.md
+		ref.md = ref.md
 	EndProjectSection
 EndProject
 Global
