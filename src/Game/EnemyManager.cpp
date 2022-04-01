@@ -21,7 +21,7 @@ void EnemyManager::Draw()
 	}
 }
 //-----------------------------------------------------------------------------
-void EnemyManager::Update(const PlayerCamera& playerCamera, const World& world, float deltaTime)
+void EnemyManager::Update(const oPlayerCamera& playerCamera, const oWorld& world, float deltaTime)
 {
 	for (int i = 0; i < ENEMIES; i++)
 	{

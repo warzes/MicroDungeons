@@ -956,45 +956,6 @@ RMAPI Matrix MatrixInvert(Matrix mat)
     return result;
 }
 
-// Normalize provided matrix
-RMAPI Matrix MatrixNormalize(Matrix mat)
-{
-    Matrix result = { 0 };
-
-    // Cache the matrix values (speed optimization)
-    float a00 = mat.m0, a01 = mat.m1, a02 = mat.m2, a03 = mat.m3;
-    float a10 = mat.m4, a11 = mat.m5, a12 = mat.m6, a13 = mat.m7;
-    float a20 = mat.m8, a21 = mat.m9, a22 = mat.m10, a23 = mat.m11;
-    float a30 = mat.m12, a31 = mat.m13, a32 = mat.m14, a33 = mat.m15;
-
-    // MatrixDeterminant(mat)
-    float det = a30*a21*a12*a03 - a20*a31*a12*a03 - a30*a11*a22*a03 + a10*a31*a22*a03 +
-                a20*a11*a32*a03 - a10*a21*a32*a03 - a30*a21*a02*a13 + a20*a31*a02*a13 +
-                a30*a01*a22*a13 - a00*a31*a22*a13 - a20*a01*a32*a13 + a00*a21*a32*a13 +
-                a30*a11*a02*a23 - a10*a31*a02*a23 - a30*a01*a12*a23 + a00*a31*a12*a23 +
-                a10*a01*a32*a23 - a00*a11*a32*a23 - a20*a11*a02*a33 + a10*a21*a02*a33 +
-                a20*a01*a12*a33 - a00*a21*a12*a33 - a10*a01*a22*a33 + a00*a11*a22*a33;
-
-    result.m0 = mat.m0/det;
-    result.m1 = mat.m1/det;
-    result.m2 = mat.m2/det;
-    result.m3 = mat.m3/det;
-    result.m4 = mat.m4/det;
-    result.m5 = mat.m5/det;
-    result.m6 = mat.m6/det;
-    result.m7 = mat.m7/det;
-    result.m8 = mat.m8/det;
-    result.m9 = mat.m9/det;
-    result.m10 = mat.m10/det;
-    result.m11 = mat.m11/det;
-    result.m12 = mat.m12/det;
-    result.m13 = mat.m13/det;
-    result.m14 = mat.m14/det;
-    result.m15 = mat.m15/det;
-
-    return result;
-}
-
 // Get identity matrix
 RMAPI Matrix MatrixIdentity(void)
 {
@@ -1550,12 +1511,10 @@ RMAPI Quaternion QuaternionScale(Quaternion q, float mul)
 {
     Quaternion result = { 0 };
 
-    float qax = q.x, qay = q.y, qaz = q.z, qaw = q.w;
-
-    result.x = qax*mul + qaw*mul + qay*mul - qaz*mul;
-    result.y = qay*mul + qaw*mul + qaz*mul - qax*mul;
-    result.z = qaz*mul + qaw*mul + qax*mul - qay*mul;
-    result.w = qaw*mul - qax*mul - qay*mul - qaz*mul;
+    result.x = q.x*mul;
+    result.y = q.y*mul;
+    result.z = q.z*mul;
+    result.w = q.w*mul;
 
     return result;
 }

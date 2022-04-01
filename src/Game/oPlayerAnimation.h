@@ -1,6 +1,6 @@
 #pragma once
 
-class PlayerAnimation
+class oPlayerAnimation
 {
 public:
 	void Init();

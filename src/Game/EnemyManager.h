@@ -8,7 +8,7 @@ public:
 	void Init();
 	void Close();
 	void Draw();
-	void Update(const PlayerCamera& playerCamera, const World& world, float deltaTime);
+	void Update(const oPlayerCamera& playerCamera, const oWorld& world, float deltaTime);
 
 	void PlayerAttack(const Vector3& playerPosition, const Ray& ray);
 

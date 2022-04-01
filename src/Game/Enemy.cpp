@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Enemy.h"
-#include "World.h"
+#include "oWorld.h"
 #include "EnemyManager.h"
-#include "Player.h"
+#include "oPlayer.h"
 //-----------------------------------------------------------------------------
 void Enemy::Init()
 {
@@ -22,7 +22,7 @@ void Enemy::Draw()
 	DrawCube(m_enemyBoxPos, 0.4f, 0.6f, 0.4f, MAROON);
 }
 //-----------------------------------------------------------------------------
-void Enemy::Update(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world, float deltaTime)
+void Enemy::Update(const EnemyManager& enemyManager, const oPlayerCamera& playerCamera, const oWorld& world, float deltaTime)
 {
 	if (m_active == true)
 	{
@@ -101,7 +101,7 @@ bool Enemy::PlayerAttack()
 	return true;
 }
 //-----------------------------------------------------------------------------
-bool Enemy::testCollision(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world) const
+bool Enemy::testCollision(const EnemyManager& enemyManager, const oPlayerCamera& playerCamera, const oWorld& world) const
 {
 	struct BoundingBox cBounds = {
 		{ m_enemyBoxPos.x - 0.2f, 0.0001f, m_enemyBoxPos.z - 0.2f },

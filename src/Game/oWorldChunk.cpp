@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "WorldChunk.h"
-#include "World.h"
+#include "oWorldChunk.h"
+#include "oWorld.h"
 //-----------------------------------------------------------------------------
 struct VertexWorldChunk
 {
@@ -70,16 +70,16 @@ inline static constexpr std::array<std::array<int32_t, 6>, 6> SideVertexIndices 
 //-----------------------------------------------------------------------------
 inline static constexpr std::array<int32_t, 6> VertexUVIndices = { 0, 2, 1, 2, 3, 1 };
 //-----------------------------------------------------------------------------
-WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShader, Point2 position)
+oWorldChunk::oWorldChunk(oWorld& world, Texture2D textureDiffuse, Shader chunkShader, Point2 position)
 	: m_world(world)
 	, m_position(position)
 {
 	std::vector<VertexWorldChunk> vertexData;
-	for (auto y = m_position.y; y < m_position.y + ChunkSize; ++y)
+	for (auto y = m_position.y; y < m_position.y + oChunkSize; ++y)
 	{
-		for (auto x = m_position.x; x < m_position.x + ChunkSize; ++x)
+		for (auto x = m_position.x; x < m_position.x + oChunkSize; ++x)
 		{
-			TileInfo* tile = m_world.GetTile({ x, y });
+			oTileInfo* tile = m_world.GetTile({ x, y });
 			Vector3 offset{ (float)x, 0.0f, (float)y };
 
 			auto createVerticesFunc = [&](TileSide side) 
@@ -99,13 +99,13 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 
 					static constexpr Vector2 uvSize
 					{
-						1.0f / TilesetSize,
-						1.0f / TilesetSize,
+						1.0f / oTilesetSize,
+						1.0f / oTilesetSize,
 					};
 					const Vector2 tileUV
 					{ 
-						static_cast<float>(tileTexture % TilesetSize) / TilesetSize,
-						static_cast<float>(tileTexture / TilesetSize) / TilesetSize 
+						static_cast<float>(tileTexture % oTilesetSize) / oTilesetSize,
+						static_cast<float>(tileTexture / oTilesetSize) / oTilesetSize 
 					};
 					auto tileUVFactors = TileVertexUVs[VertexUVIndices[i]];
 
@@ -133,32 +133,32 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 				}
 			};
 
-			if (tile->type == TileType::Air)
+			if (tile->type == oTileType::Air)
 			{
 				createVerticesFunc(TileSide::Bottom);
 				createVerticesFunc(TileSide::Top);
 			}
-			else if (tile->type == TileType::Temp)
+			else if (tile->type == oTileType::Temp)
 			{
 				createVerticesFunc(TileSide::Bottom);
 			}
-			else if (tile->type == TileType::Wall)
+			else if (tile->type == oTileType::Wall)
 			{
 				auto tileSouth = m_world.GetTile({ x, y + 1 });
 				auto tileNorth = m_world.GetTile({ x, y - 1 });
 				auto tileWest = m_world.GetTile({ x - 1, y });
 				auto tileEast = m_world.GetTile({ x + 1, y });
 
-				if (tileSouth && !IsTileTypeOpaque(tileSouth->type))
+				if (tileSouth && !oIsTileTypeOpaque(tileSouth->type))
 					createVerticesFunc(TileSide::Forward);
 
-				if (tileNorth && !IsTileTypeOpaque(tileNorth->type))
+				if (tileNorth && !oIsTileTypeOpaque(tileNorth->type))
 					createVerticesFunc(TileSide::Back);
 
-				if (tileWest && !IsTileTypeOpaque(tileWest->type))
+				if (tileWest && !oIsTileTypeOpaque(tileWest->type))
 					createVerticesFunc(TileSide::Left);
 
-				if (tileEast && !IsTileTypeOpaque(tileEast->type))
+				if (tileEast && !oIsTileTypeOpaque(tileEast->type))
 					createVerticesFunc(TileSide::Right);
 			}
 		}
@@ -203,14 +203,14 @@ WorldChunk::WorldChunk(World& world, Texture2D textureDiffuse, Shader chunkShade
 	m_model.materials[0].shader = chunkShader;
 }
 //-----------------------------------------------------------------------------
-void WorldChunk::Draw()
+void oWorldChunk::Draw()
 {
 	//rlDisableBackfaceCulling();
 	DrawModel(m_model, { 0.0f, 0.0f, 0.0f }, 1.0f, WHITE); // позиции уже вшиты в чанки
 	//rlEnableBackfaceCulling();
 }
 //-----------------------------------------------------------------------------
-void WorldChunk::Close()
+void oWorldChunk::Close()
 {
 	UnloadModel(m_model);
 }

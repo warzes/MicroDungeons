@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "WorldData.h"
+#include "oWorldData.h"
 //-----------------------------------------------------------------------------
-WorldData::WorldData(const char* file)
+oWorldData::oWorldData(const char* file)
 {
 	m_size.x = 32;
 	m_size.y = 32;
@@ -10,14 +10,14 @@ WorldData::WorldData(const char* file)
 	{
 		for (int x = 0; x < m_size.x; ++x)
 		{
-			TileInfo tileInfo = {};
+			oTileInfo tileInfo = {};
 
-			tileInfo.type = TileType::Air;
+			tileInfo.type = oTileType::Air;
 
 			if (x == 0 || x == m_size.x - 1)
-				tileInfo.type = TileType::Wall;
+				tileInfo.type = oTileType::Wall;
 			else if (y == 0 || y == m_size.y - 1)
-				tileInfo.type = TileType::Wall;
+				tileInfo.type = oTileType::Wall;
 			//else
 			//{
 			//	int t = rand() % 100;
@@ -50,32 +50,32 @@ WorldData::WorldData(const char* file)
 	}
 }
 //-----------------------------------------------------------------------------
-TileInfo* WorldData::GetTile(Point2 tilePosition)
+oTileInfo* oWorldData::GetTile(Point2 tilePosition)
 {
 	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
 		return nullptr;
 	return &m_tileInfo[static_cast<size_t>(tilePosition.y * m_size.x + tilePosition.x)];
 }
 //-----------------------------------------------------------------------------
-const TileInfo* WorldData::GetTile(Point2 tilePosition) const
+const oTileInfo* oWorldData::GetTile(Point2 tilePosition) const
 {
 	if (tilePosition.x < 0 || tilePosition.x >= m_size.x || tilePosition.y < 0 || tilePosition.y >= m_size.y)
 		return nullptr;
 	return &m_tileInfo[static_cast<size_t>(tilePosition.y * m_size.x + tilePosition.x)];
 }
 //-----------------------------------------------------------------------------
-Vector3 WorldData::GetTileLight(Point2 tilePosition)
+Vector3 oWorldData::GetTileLight(Point2 tilePosition)
 {
 	auto currentTile = GetTile(tilePosition);
 	return currentTile ? currentTile->lighting : Vector3{ 0.0f, 0.0f, 0.0f };
 }
 //-----------------------------------------------------------------------------
-Point2 WorldData::Size() const
+Point2 oWorldData::Size() const
 {
 	return m_size;
 }
 //-----------------------------------------------------------------------------
-void WorldData::PerformRadiosity(Point2 tilePosition, Vector3 lightSource)
+void oWorldData::PerformRadiosity(Point2 tilePosition, Vector3 lightSource)
 {
 	std::queue<std::pair<Point2, Vector3>> frontier;
 	std::set<std::tuple<int32_t, int32_t>> visited;
@@ -93,11 +93,11 @@ void WorldData::PerformRadiosity(Point2 tilePosition, Vector3 lightSource)
 			continue;
 		visited.emplace(currentPosition.x, currentPosition.y);
 
-		TileInfo* currentTile = GetTile(currentPosition);
+		oTileInfo* currentTile = GetTile(currentPosition);
 		if (!currentTile)
 			continue;
 
-		if (IsTileTypeOpaque(currentTile->type))
+		if (oIsTileTypeOpaque(currentTile->type))
 			continue;
 
 		if (currentLightLevel.x == 0.0f && currentLightLevel.y == 0.0f && currentLightLevel.z == 0.0f)

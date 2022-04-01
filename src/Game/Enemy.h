@@ -1,15 +1,15 @@
 #pragma once
 
-class World;
+class oWorld;
 class EnemyManager;
-class PlayerCamera;
+class oPlayerCamera;
 
 class Enemy
 {
 public:
 	void Init();
 	void Draw();
-	void Update(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world, float deltaTime);
+	void Update(const EnemyManager& enemyManager, const oPlayerCamera& playerCamera, const oWorld& world, float deltaTime);
 
 	bool PlayerAttack();
 
@@ -17,7 +17,7 @@ public:
 	BoundingBox GetBoundingBox() const { return m_enemyBounds; }
 
 private:
-	bool testCollision(const EnemyManager& enemyManager, const PlayerCamera& playerCamera, const World& world) const;
+	bool testCollision(const EnemyManager& enemyManager, const oPlayerCamera& playerCamera, const oWorld& world) const;
 
 	Vector3 m_enemyStartPos;
 	Vector3 m_enemyBoxPos;

@@ -152,14 +152,6 @@ void UpdateTest()
 		//{
 
 		//}
-
-
-
-
-
-
-
-
 		Vector3 newPos = camPos2 + Dir *(2 * GetFrameTime());
 		
 

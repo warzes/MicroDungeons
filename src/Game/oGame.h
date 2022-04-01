@@ -3,10 +3,10 @@
 #include "GameState.h"
 #include "GameLogic.h"
 
-class Game
+class oGame
 {
 public:
-	Game();
+	oGame();
 
 	void Frame();
 	void Update();

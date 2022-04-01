@@ -1,21 +1,21 @@
 #pragma once
 
-class World;
+class oWorld;
 class EnemyManager;
 
-class PlayerCamera
+class oPlayerCamera
 {
 	friend class PlayerLogic;
 public:
-	PlayerCamera();
+	oPlayerCamera();
 
-	static PlayerCamera* Get();
+	static oPlayerCamera* Get();
 
 	void Init(const Vector3& startPosition, int rotationCamX, int rotationCamY);
 
-	void Update(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision, float deltaTime);
+	void Update(const oWorld& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision, float deltaTime);
 
-	bool TestCollision(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision);
+	bool TestCollision(const oWorld& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision);
 	bool TestCollision(ModelCollisionTest* modelCollision);
 
 	Camera GetCamera() const { return m_camera; }
@@ -42,7 +42,7 @@ private:
 class PlayerLogic
 {
 public:
-	PlayerLogic(PlayerCamera& playerCamera);
+	PlayerLogic(oPlayerCamera& playerCamera);
 
 private:
 	Vector3& m_position;

@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "Game.h"
+#include "oGame.h"
 #include "ResourceManager.h"
 //-----------------------------------------------------------------------------
 #if defined(_MSC_VER)
@@ -31,7 +31,7 @@ void ImplMain()
 
 	{
 		ResourceManager resourceManager;
-		Game game;
+		oGame game;
 		while (!WindowShouldClose())
 		{
 			game.Frame();

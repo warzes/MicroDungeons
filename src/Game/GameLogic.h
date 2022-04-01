@@ -1,9 +1,9 @@
 #pragma once
 
 #include "GameState.h"
-#include "Player.h"
-#include "PlayerAnimation.h"
-#include "World.h"
+#include "oPlayer.h"
+#include "oPlayerAnimation.h"
+#include "oWorld.h"
 #include "EnemyManager.h"
 #include "RenderObjectManager.h"
 
@@ -18,10 +18,10 @@ public:
 	void OnStop() final;
 
 private:
-	PlayerCamera m_playerCamera;
-	PlayerAnimation m_playerAnimation;
+	oPlayerCamera m_playerCamera;
+	oPlayerAnimation m_playerAnimation;
 	PlayerLogic m_playerLogic;
-	World m_world;
+	oWorld m_world;
 	EnemyManager m_enemyManager;
 	RenderObjectManager m_renderObjectManager;
 };

@@ -184,15 +184,14 @@
     <ClCompile Include="CollisionModel3D.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="oGame.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelCollisionTest.cpp" />
     <ClCompile Include="mytritri.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerAnimation.cpp" />
-    <ClCompile Include="PlayerRPG.cpp" />
+    <ClCompile Include="oPlayerAnimation.cpp" />
     <ClCompile Include="RayCollisionTest.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="RenderObjectManager.cpp" />
@@ -206,9 +205,9 @@
     </ClCompile>
     <ClCompile Include="TinyMath3D.cpp" />
     <ClCompile Include="tritri.cpp" />
-    <ClCompile Include="World.cpp" />
-    <ClCompile Include="WorldChunk.cpp" />
-    <ClCompile Include="WorldData.cpp" />
+    <ClCompile Include="oWorld.cpp" />
+    <ClCompile Include="oWorldChunk.cpp" />
+    <ClCompile Include="oWorldData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
@@ -218,16 +217,15 @@
     <ClInclude Include="CollisionModel3D.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="oGame.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ModelCollisionTest.h" />
     <ClInclude Include="mytritri.h" />
     <ClInclude Include="Other.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerAnimation.h" />
-    <ClInclude Include="PlayerRPG.h" />
+    <ClInclude Include="oPlayer.h" />
+    <ClInclude Include="oPlayerAnimation.h" />
     <ClInclude Include="RayCollisionTest.h" />
     <ClInclude Include="RenderObject.h" />
     <ClInclude Include="RenderObjectManager.h" />
@@ -236,9 +234,9 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TestCollision.h" />
     <ClInclude Include="TinyMath3D.h" />
-    <ClInclude Include="World.h" />
-    <ClInclude Include="WorldChunk.h" />
-    <ClInclude Include="WorldData.h" />
+    <ClInclude Include="oWorld.h" />
+    <ClInclude Include="oWorldChunk.h" />
+    <ClInclude Include="oWorldData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

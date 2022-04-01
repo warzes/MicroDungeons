@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "PlayerAnimation.h"
+#include "oPlayerAnimation.h"
 //-----------------------------------------------------------------------------
 #define NUM_FRAMES_PER_LINE 4
 //-----------------------------------------------------------------------------
-void PlayerAnimation::Init()
+void oPlayerAnimation::Init()
 {
 	m_sword = LoadTexture("../data/textures/sword.png");
 	m_frameRec.x = 0.0f;
@@ -12,17 +12,17 @@ void PlayerAnimation::Init()
 	m_frameRec.height = (float)m_sword.height / 2;
 }
 //-----------------------------------------------------------------------------
-void PlayerAnimation::Close()
+void oPlayerAnimation::Close()
 {
 	UnloadTexture(m_sword);
 }
 //-----------------------------------------------------------------------------
-void PlayerAnimation::Draw2D()
+void oPlayerAnimation::Draw2D()
 {
 	DrawTextureRec(m_sword, m_frameRec, m_swordPosition, WHITE);
 }
 //-----------------------------------------------------------------------------
-void PlayerAnimation::Update(float deltaTime)
+void oPlayerAnimation::Update(float deltaTime)
 {
 	m_swordOffsetPosition = { static_cast<float>(GetScreenWidth() - 800), static_cast<float>(GetScreenHeight() - 430) };
 	m_swordPosition.y = 50.0f + m_swordOffsetPosition.x;
@@ -54,14 +54,14 @@ void PlayerAnimation::Update(float deltaTime)
 	}
 }
 //-----------------------------------------------------------------------------
-bool PlayerAnimation::IsEndAnimationAttack()
+bool oPlayerAnimation::IsEndAnimationAttack()
 {
 	bool ret = m_isEndAnimationAttack;
 	m_isEndAnimationAttack = false;
 	return ret;
 }
 //-----------------------------------------------------------------------------
-void PlayerAnimation::StartAnimationAttacking()
+void oPlayerAnimation::StartAnimationAttacking()
 {
 	m_attacking = true;
 }

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "World.h"
+#include "oWorld.h"
 //-----------------------------------------------------------------------------
 constexpr const char* chunkShaderVs = R"(
 #version 330
@@ -65,7 +65,7 @@ void main()
 }
 )";
 //-----------------------------------------------------------------------------
-void World::Init()
+void oWorld::Init()
 {
 	m_chunkShader = LoadShaderFromMemory(chunkShaderVs, chunkShaderFs);
 	m_uniformFogDensity = GetShaderLocation(m_chunkShader, "uniformFogDensity");
@@ -74,19 +74,19 @@ void World::Init()
 	SetTextureFilter(m_textureTileset, TEXTURE_FILTER_POINT);
 	SetTextureWrap(m_textureTileset, TEXTURE_WRAP_MIRROR_REPEAT);
 
-	m_worldData = new WorldData("");
+	m_worldData = new oWorldData("");
 
 	// Generate level chunks.
-	for (int32_t z = 0; z < m_worldData->Size().y; z += ChunkSize)
+	for (int32_t z = 0; z < m_worldData->Size().y; z += oChunkSize)
 	{
-		for (int32_t x = 0; x < m_worldData->Size().x; x += ChunkSize)
+		for (int32_t x = 0; x < m_worldData->Size().x; x += oChunkSize)
 		{
-			m_chunks.insert({ chunkPosition({x, z}), WorldChunk{*this, m_textureTileset, m_chunkShader, {x, z}} });
+			m_chunks.insert({ chunkPosition({x, z}), oWorldChunk{*this, m_textureTileset, m_chunkShader, {x, z}} });
 		}
 	}
 }
 //-----------------------------------------------------------------------------
-void World::Frame()
+void oWorld::Frame()
 {
 	const float FogDensity = 0.10f;
 	//float FogDensity = 0.50f;
@@ -98,7 +98,7 @@ void World::Frame()
 	}
 }
 //-----------------------------------------------------------------------------
-void World::Close()
+void oWorld::Close()
 {
 	for (auto it = m_chunks.begin(); it != m_chunks.end(); ++it)
 	{
@@ -111,17 +111,17 @@ void World::Close()
 	delete m_worldData;
 }
 //-----------------------------------------------------------------------------
-TileInfo* World::GetTile(Point2 tilePosition)
+oTileInfo* oWorld::GetTile(Point2 tilePosition)
 {
 	return m_worldData->GetTile(tilePosition);
 }
 //-----------------------------------------------------------------------------
-const TileInfo* World::GetTile(Point2 tilePosition) const
+const oTileInfo* oWorld::GetTile(Point2 tilePosition) const
 {
 	return m_worldData->GetTile(tilePosition);
 }
 //-----------------------------------------------------------------------------
-Vector4 World::GetLight(Vector2 position)
+Vector4 oWorld::GetLight(Vector2 position)
 {
 	const Vector3 lightCurrent = m_worldData->GetTileLight({ (int)position.x, (int)position.y });
 
@@ -152,12 +152,12 @@ Vector4 World::GetLight(Vector2 position)
 	return ambientColor + Vector4{ final_interpolated.x, final_interpolated.y, final_interpolated.z, 1.0f } * (Vector4(1, 1, 1, 1) - ambientColor);
 }
 //-----------------------------------------------------------------------------
-Point2 World::Size() const
+Point2 oWorld::Size() const
 {
 	return m_worldData->Size();
 }
 //-----------------------------------------------------------------------------
-bool World::TestCollision(const BoundingBox& bbox) const
+bool oWorld::TestCollision(const BoundingBox& bbox) const
 {
 	for (int x = (int)(bbox.min.x - 1.5); x < (int)(bbox.max.x + 1.5); x++)
 	{
@@ -172,13 +172,13 @@ bool World::TestCollision(const BoundingBox& bbox) const
 
 				BoundingBox bBox;
 
-				if (tileInfo->type == TileType::Wall)
+				if (tileInfo->type == oTileType::Wall)
 				{
 					bBox.min = { (float)x - 0.5f, 0.0f, (float)z - 0.5f };
 					bBox.max = { (float)x + 0.5f, 1.0f, (float)z + 0.5f };
 					if (CheckCollisionBoxes(bbox, bBox)) return true;
 				}
-				else if (tileInfo->type == TileType::Air)
+				else if (tileInfo->type == oTileType::Air)
 				{
 					// floor
 					bBox.min = { (float)x - 0.5f, -0.01f, (float)z - 0.5f };
@@ -190,7 +190,7 @@ bool World::TestCollision(const BoundingBox& bbox) const
 					bBox.max = { (float)x + 0.5f, 1.01f, (float)z + 0.5f };
 					if (CheckCollisionBoxes(bbox, bBox)) return true;
 				}
-				else if (tileInfo->type == TileType::Temp)
+				else if (tileInfo->type == oTileType::Temp)
 				{
 					// floor
 					bBox.min = { (float)x - 0.5f, -0.01f, (float)z - 0.5f };
@@ -204,14 +204,14 @@ bool World::TestCollision(const BoundingBox& bbox) const
 	return false;
 }
 //-----------------------------------------------------------------------------
-Point2 World::chunkPosition(Point2 tilePosition)
+Point2 oWorld::chunkPosition(Point2 tilePosition)
 {
 	Point2 chunkPosition;
-	if (tilePosition.x >= 0) chunkPosition.x = tilePosition.x / ChunkSize;
-	else chunkPosition.x = ((tilePosition.x + 1) / ChunkSize) - 1;
+	if (tilePosition.x >= 0) chunkPosition.x = tilePosition.x / oChunkSize;
+	else chunkPosition.x = ((tilePosition.x + 1) / oChunkSize) - 1;
 	
-	if (tilePosition.y >= 0) chunkPosition.y = tilePosition.y / ChunkSize;
-	else chunkPosition.y = ((tilePosition.y + 1) / ChunkSize) - 1;
+	if (tilePosition.y >= 0) chunkPosition.y = tilePosition.y / oChunkSize;
+	else chunkPosition.y = ((tilePosition.y + 1) / oChunkSize) - 1;
 
 	return chunkPosition;
 }

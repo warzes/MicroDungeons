@@ -1,7 +1,7 @@
 #pragma once
 
-#include "WorldData.h"
-#include "WorldChunk.h"
+#include "oWorldData.h"
+#include "oWorldChunk.h"
 
 namespace std {
 	template<>
@@ -18,15 +18,15 @@ namespace std {
 
 } // namespace std
 
-class World
+class oWorld
 {
 public:
 	void Init();
 	void Frame();
 	void Close();
 
-	TileInfo* GetTile(Point2 tilePosition);
-	const TileInfo* GetTile(Point2 tilePosition) const;
+	oTileInfo* GetTile(Point2 tilePosition);
+	const oTileInfo* GetTile(Point2 tilePosition) const;
 	Vector4 GetLight(Vector2 position);
 	Point2 Size() const;
 
@@ -35,8 +35,8 @@ public:
 private:
 	Point2 chunkPosition(Point2 tilePosition);
 
-	WorldData* m_worldData = nullptr;
-	std::unordered_map<Point2, WorldChunk> m_chunks;
+	oWorldData* m_worldData = nullptr;
+	std::unordered_map<Point2, oWorldChunk> m_chunks;
 	Texture m_textureTileset = {};
 	Shader m_chunkShader = {};
 	int m_uniformFogDensity = 0;

@@ -3,32 +3,29 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
+    <ClCompile Include="oGame.cpp">
+      <Filter>OldGame</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Game\World</Filter>
+    <ClCompile Include="oWorld.cpp">
+      <Filter>OldGame\World</Filter>
     </ClCompile>
-    <ClCompile Include="WorldData.cpp">
-      <Filter>Game\World</Filter>
+    <ClCompile Include="oWorldData.cpp">
+      <Filter>OldGame\World</Filter>
     </ClCompile>
-    <ClCompile Include="WorldChunk.cpp">
-      <Filter>Game\World</Filter>
+    <ClCompile Include="oWorldChunk.cpp">
+      <Filter>OldGame\World</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Game\Player</Filter>
+      <Filter>OldGame\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerRPG.cpp">
-      <Filter>Game\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAnimation.cpp">
-      <Filter>Game\Player</Filter>
+    <ClCompile Include="oPlayerAnimation.cpp">
+      <Filter>OldGame\Player</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Game\Enemy</Filter>
+      <Filter>OldGame\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
-      <Filter>Game\Enemy</Filter>
+      <Filter>OldGame\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Core</Filter>
@@ -64,50 +61,47 @@
       <Filter>Core\TinyCollision</Filter>
     </ClCompile>
     <ClCompile Include="GameLogic.cpp">
-      <Filter>Game\GameState</Filter>
+      <Filter>OldGame\GameState</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Game\GameState</Filter>
+      <Filter>OldGame\GameState</Filter>
     </ClCompile>
     <ClCompile Include="RenderObject.cpp">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClCompile>
     <ClCompile Include="RenderObjectManager.cpp">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClCompile>
     <ClCompile Include="BSP.cpp">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="oGame.h">
+      <Filter>OldGame</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Game\World</Filter>
+    <ClInclude Include="oWorld.h">
+      <Filter>OldGame\World</Filter>
     </ClInclude>
-    <ClInclude Include="WorldData.h">
-      <Filter>Game\World</Filter>
+    <ClInclude Include="oWorldData.h">
+      <Filter>OldGame\World</Filter>
     </ClInclude>
-    <ClInclude Include="WorldChunk.h">
-      <Filter>Game\World</Filter>
+    <ClInclude Include="oWorldChunk.h">
+      <Filter>OldGame\World</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game\Player</Filter>
+    <ClInclude Include="oPlayer.h">
+      <Filter>OldGame\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerRPG.h">
-      <Filter>Game\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerAnimation.h">
-      <Filter>Game\Player</Filter>
+    <ClInclude Include="oPlayerAnimation.h">
+      <Filter>OldGame\Player</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Game\Enemy</Filter>
+      <Filter>OldGame\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
-      <Filter>Game\Enemy</Filter>
+      <Filter>OldGame\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Core</Filter>
@@ -140,54 +134,54 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="GameLogic.h">
-      <Filter>Game\GameState</Filter>
+      <Filter>OldGame\GameState</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Game\GameState</Filter>
+      <Filter>OldGame\GameState</Filter>
     </ClInclude>
     <ClInclude Include="TestCollision.h">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClInclude>
     <ClInclude Include="RenderObject.h">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClInclude>
     <ClInclude Include="RenderObjectManager.h">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClInclude>
     <ClInclude Include="BSP.h">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClInclude>
     <ClInclude Include="Array.h">
-      <Filter>Game\GameState\Test</Filter>
+      <Filter>OldGame\GameState\Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Game">
-      <UniqueIdentifier>{b6262939-041c-40fe-bf42-f493f4555f9d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\World">
-      <UniqueIdentifier>{ac29744f-90c3-46ce-9f29-2f4055631cae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Player">
-      <UniqueIdentifier>{5cfec5e3-987c-426e-bfed-44989a52d600}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemy">
-      <UniqueIdentifier>{06ad6fb8-0097-42bf-beba-62f1c63f0f68}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{e5728c7f-5509-448c-a994-aa74b80b68e4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\TinyCollision">
       <UniqueIdentifier>{f5f00c47-1239-4c68-af8c-80ef32a80174}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameState">
-      <UniqueIdentifier>{35b1da0a-e93e-4469-92a1-7c98b1120d82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameState\Test">
-      <UniqueIdentifier>{cae0a2a2-5b55-482c-a42b-f8d6379824f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework">
       <UniqueIdentifier>{3e76c316-6813-4254-b759-96a7d9c68cef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldGame">
+      <UniqueIdentifier>{b6262939-041c-40fe-bf42-f493f4555f9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldGame\World">
+      <UniqueIdentifier>{ac29744f-90c3-46ce-9f29-2f4055631cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldGame\Player">
+      <UniqueIdentifier>{5cfec5e3-987c-426e-bfed-44989a52d600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldGame\Enemy">
+      <UniqueIdentifier>{06ad6fb8-0097-42bf-beba-62f1c63f0f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldGame\GameState">
+      <UniqueIdentifier>{35b1da0a-e93e-4469-92a1-7c98b1120d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OldGame\GameState\Test">
+      <UniqueIdentifier>{cae0a2a2-5b55-482c-a42b-f8d6379824f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

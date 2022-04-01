@@ -1,12 +1,12 @@
 #include "stdafx.h"
-#include "Player.h"
-#include "World.h"
+#include "oPlayer.h"
+#include "oWorld.h"
 #include "EnemyManager.h"
 //-----------------------------------------------------------------------------
-static PlayerCamera* gPlayer = nullptr;
+static oPlayerCamera* gPlayer = nullptr;
 #define MOUSE_SENSITIVITY 0.003f
 //-----------------------------------------------------------------------------
-PlayerCamera::PlayerCamera()
+oPlayerCamera::oPlayerCamera()
 {
 	gPlayer = this;
 
@@ -20,12 +20,12 @@ PlayerCamera::PlayerCamera()
 	m_collisionBox.max = {  0.2f, 0.6f,  0.2f };
 }
 //-----------------------------------------------------------------------------
-PlayerCamera* PlayerCamera::Get()
+oPlayerCamera* oPlayerCamera::Get()
 {
 	return gPlayer;
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::Init(const Vector3& startPosition, int rotationCamX, int rotationCamY)
+void oPlayerCamera::Init(const Vector3& startPosition, int rotationCamX, int rotationCamY)
 {
 	SetCameraMode(m_camera, CAMERA_CUSTOM);
 	m_position = { startPosition.x, startPosition.y+0.1f, startPosition.z };
@@ -82,7 +82,7 @@ void PlayerCamera::Init(const Vector3& startPosition, int rotationCamX, int rota
 	UnloadModel(boxModel);
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::Update(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision, float deltaTime)
+void oPlayerCamera::Update(const oWorld& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision, float deltaTime)
 {
 	//Gravity
 	m_velocity.y -= 0.012f * (deltaTime * 60.0f);
@@ -114,7 +114,7 @@ void PlayerCamera::Update(const World& world, const EnemyManager& enemyManager, 
 	checkInputs();
 }
 //-----------------------------------------------------------------------------
-bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision)
+bool oPlayerCamera::TestCollision(const oWorld& world, const EnemyManager& enemyManager, ModelCollisionTest* modelCollision)
 {
 	if (world.TestCollision(GetBoundingBox())) return true;
 	if (enemyManager.TestCollision(m_position, GetBoundingBox())) return true;
@@ -139,25 +139,25 @@ bool PlayerCamera::TestCollision(const World& world, const EnemyManager& enemyMa
 	return false;
 }
 //-----------------------------------------------------------------------------
-bool PlayerCamera::TestCollision(ModelCollisionTest* modelCollision)
+bool oPlayerCamera::TestCollision(ModelCollisionTest* modelCollision)
 {
 	return m_colModel.modelCollision(modelCollision);
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::EnableCursor()
+void oPlayerCamera::EnableCursor()
 {
 	m_cursorEnabled = true;
 	::EnableCursor();
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::DisableCursor()
+void oPlayerCamera::DisableCursor()
 {
 	m_cursorEnabled = false;
 	::DisableCursor();
 	SetMousePosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
 }
 //-----------------------------------------------------------------------------
-BoundingBox PlayerCamera::GetBoundingBox() const
+BoundingBox oPlayerCamera::GetBoundingBox() const
 {
 	BoundingBox pB = m_collisionBox;
 	pB.min = Vector3Add(pB.min, m_position);
@@ -165,12 +165,12 @@ BoundingBox PlayerCamera::GetBoundingBox() const
 	return pB;
 }
 //-----------------------------------------------------------------------------
-Vector3 PlayerCamera::GetPosition() const
+Vector3 oPlayerCamera::GetPosition() const
 {
 	return m_position;
 }
 //-----------------------------------------------------------------------------
-void PlayerCamera::checkInputs()
+void oPlayerCamera::checkInputs()
 {
 	Vector2 mousePositionDelta = GetMouseDelta();
 
@@ -242,7 +242,7 @@ void PlayerCamera::checkInputs()
 	UpdateCamera(&m_camera);
 }
 //-----------------------------------------------------------------------------
-PlayerLogic::PlayerLogic(PlayerCamera& playerCamera)
+PlayerLogic::PlayerLogic(oPlayerCamera& playerCamera)
 	: m_position(playerCamera.m_position)
 {
 }

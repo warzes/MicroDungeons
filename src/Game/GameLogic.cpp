@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameLogic.h"
-#include "Player.h"
+#include "oPlayer.h"
 #include "Enemy.h"
 #include "TestCollision.h"
 //-----------------------------------------------------------------------------
@@ -89,7 +89,6 @@ GameLogic::GameLogic()
 		}
 	}
 	colModel1.finalize();
-
 
 	for (int i = 0; i < boxModel2.meshCount; i++)
 	{
