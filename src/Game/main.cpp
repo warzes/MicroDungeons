@@ -1,4 +1,10 @@
 ﻿#include "stdafx.h"
+/*
+* 2d col - http://www.jeffreythompson.org/collision-detection/table_of_contents.php
+* https://github.com/paulahemsi/cub3d
+* https://github.com/DanielChappuis/reactphysics3d
+* https://github.com/RandyGaul/qu3e
+*/
 //-----------------------------------------------------------------------------
 #if defined(_MSC_VER)
 #	pragma comment( lib, "winmm.lib" )
@@ -6,23 +12,17 @@
 #	pragma comment( lib, "3rdparty.lib" )
 #endif
 //-----------------------------------------------------------------------------
-#if defined(_MSC_VER)
-extern "C"
-{
-	// NVIDIA: Force usage of NVidia GPU in case there is an integrated graphics unit as well, if we don't do this we risk getting the integrated graphics unit and hence a horrible performance
-	// -> See "Enabling High Performance Graphics Rendering on Optimus Systems" http://developer.download.nvidia.com/devzone/devcenter/gamegraphics/files/OptimusRenderingPolicies.pdf
-	_declspec(dllexport) auto NvOptimusEnablement = 0x00000001UL;
-
-	// AMD: Force usage of AMD GPU in case there is an integrated graphics unit as well, if we don't do this we risk getting the integrated graphics unit and hence a horrible performance
-	// -> Named "Dynamic Switchable Graphics", found no official documentation, only https://community.amd.com/message/1307599#comment-1307599 - "Can an OpenGL app default to the discrete GPU on an Enduro system?"
-	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
-}
-#endif
-//-----------------------------------------------------------------------------
 void ImplMain()
 {
-	const int screenWidth = 1024;
-	const int screenHeight = 768;	
+	EngineCreateInfo createInfo;
+	Engine engine;
+	if (engine.Create(createInfo))
+	{
+		TestState test;
+		engine.SetActiveState(&test);
+
+		engine.Run();
+	}
 }
 //-----------------------------------------------------------------------------
 int main(

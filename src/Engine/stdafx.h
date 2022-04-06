@@ -7,6 +7,12 @@
 
 #include <raylib/raylib.h>
 
+#include <cassert>
+#include <cmath>
+#include <fstream>
+#include <vector>
+#include <string>
+
 #if defined(_MSC_VER)
 #	pragma warning(pop)
 #endif
