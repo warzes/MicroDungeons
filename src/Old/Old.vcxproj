@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{15be338e-1de8-4e02-b241-4191567baa46}</ProjectGuid>
+    <ProjectGuid>{C8B28384-CB65-41A3-A838-1F9B53B76B9E}</ProjectGuid>
     <RootNamespace>Game</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -177,16 +177,66 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseCollisionTest.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="box_bld.cpp" />
+    <ClCompile Include="BSP.cpp" />
+    <ClCompile Include="CollisionModel3D.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="oGame.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelCollisionTest.cpp" />
+    <ClCompile Include="mytritri.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="oPlayerAnimation.cpp" />
+    <ClCompile Include="RayCollisionTest.cpp" />
+    <ClCompile Include="RenderObject.cpp" />
+    <ClCompile Include="RenderObjectManager.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SphereCollisionTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TinyMath3D.cpp" />
+    <ClCompile Include="tritri.cpp" />
+    <ClCompile Include="oWorld.cpp" />
+    <ClCompile Include="oWorldChunk.cpp" />
+    <ClCompile Include="oWorldData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
+    <ClInclude Include="BaseCollisionTest.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="BSP.h" />
+    <ClInclude Include="CollisionModel3D.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="oGame.h" />
+    <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="ModelCollisionTest.h" />
+    <ClInclude Include="mytritri.h" />
+    <ClInclude Include="Other.h" />
+    <ClInclude Include="oPlayer.h" />
+    <ClInclude Include="oPlayerAnimation.h" />
+    <ClInclude Include="RayCollisionTest.h" />
+    <ClInclude Include="RenderObject.h" />
+    <ClInclude Include="RenderObjectManager.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SphereCollisionTest.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TestCollision.h" />
+    <ClInclude Include="TinyMath3D.h" />
+    <ClInclude Include="oWorld.h" />
+    <ClInclude Include="oWorldChunk.h" />
+    <ClInclude Include="oWorldData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

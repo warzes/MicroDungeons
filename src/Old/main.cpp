@@ -1,8 +1,9 @@
 ﻿#include "stdafx.h"
+#include "oGame.h"
+#include "ResourceManager.h"
 //-----------------------------------------------------------------------------
 #if defined(_MSC_VER)
 #	pragma comment( lib, "winmm.lib" )
-#	pragma comment( lib, "Engine.lib" )
 #	pragma comment( lib, "3rdparty.lib" )
 #endif
 //-----------------------------------------------------------------------------
@@ -22,13 +23,59 @@ extern "C"
 void ImplMain()
 {
 	const int screenWidth = 1024;
-	const int screenHeight = 768;	
+	const int screenHeight = 768;
+	InitWindow(screenWidth, screenHeight, "Game");
+	SetTargetFPS(60);
+	SetWindowState(FLAG_WINDOW_RESIZABLE);
+	//SetExitKey(0);
+
+	{
+		ResourceManager resourceManager;
+		oGame game;
+		while (!WindowShouldClose())
+		{
+			game.Frame();
+			game.Update();
+		}
+		game.Close();
+	}
+
+	rCloseWindow();
 }
+
+struct one
+{
+	uint8_t upheight;
+	uint8_t downheight;
+};
+
+struct tile
+{
+	one o[100][100];
+};
+
+struct HeightMap
+{
+	tile t[100][100];
+};
+
+constexpr auto SizeMap = sizeof(HeightMap);
+
+
 //-----------------------------------------------------------------------------
 int main(
 	[[maybe_unused]] int   argc,
 	[[maybe_unused]] char* argv[])
 {
+	HeightMap *mm = new HeightMap;
+
+	std::cout << SizeMap / 1024 / 1024 << " mb";
+
+
+
+
+
+
 	ImplMain();
 	return 0;
 }

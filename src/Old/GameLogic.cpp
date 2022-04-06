@@ -218,7 +218,7 @@ void GameLogic::OnFrame()
 	BeginMode3D(m_playerCamera.GetCamera());
 	{
 		//DrawPlane(Vector3{ 0, 0, 0 }, Vector2{ 50, 50 }, BEIGE);
-		//m_world.Frame();
+		m_world.Frame();
 
 	/*	DrawModel(boxModel1, { posModel.x, 0.2f, posModel.y }, 1.0f, GOLD);
 		DrawModel(boxModel2, { posModel.x + offset, 1.0f, posModel.y }, 0.3f, WHITE);*/
