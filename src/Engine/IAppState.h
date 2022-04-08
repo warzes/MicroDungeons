@@ -1,5 +1,7 @@
 #pragma once
 
+class Engine;
+
 class IAppState
 {
 public:

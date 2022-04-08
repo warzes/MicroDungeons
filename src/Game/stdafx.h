@@ -11,6 +11,7 @@
 #include <cmath>
 
 #include <iostream>
+#include <fstream>
 
 #include <Engine/Vector3.h>
 #include <Engine/Vector4.h>

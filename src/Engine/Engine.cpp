@@ -1,13 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Engine.h"
-
-https://www.unrealengine.com/marketplace/en-US/product/retrodungeons-the-forest
-https://voxelvoid.itch.io/dark-lords-maze
-https://www.youtube.com/watch?v=fu3ZpCcQImE
-https://www.youtube.com/watch?v=puAVRRkYxQE
-
-
-
 //-----------------------------------------------------------------------------
 #if defined(_MSC_VER)
 extern "C"
